@@ -1,0 +1,34 @@
+Comparing All Cases
+====================
+
+
+**Comparing Objective Function Values:**
+
+.. image:: examples/testing_clp73/optplot.png
+
+
+**Comparing the Optimization Speeds:**
+
+.. image:: examples/testing_clp73/tplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp73/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp73/longv.png
+.. image:: examples/testing_clp73/ax.png
+.. image:: examples/testing_clp73/jx.png
+.. image:: examples/testing_clp73/sa.png
+.. image:: examples/testing_clp73/sr.png
+.. image:: examples/testing_clp73/yaw.png
+.. image:: examples/testing_clp73/yr.png
+.. image:: examples/testing_clp73/latv.png
+.. image:: examples/testing_clp73/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp73/vt.png
+.. image:: examples/testing_clp73/lt.png

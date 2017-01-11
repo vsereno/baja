@@ -1,0 +1,42 @@
+Testing KNITRO with Trouble Case
+================================
+
+**Notes & Conclusions & Questions:**
+
+  * It can be seen that the optimization fails around the same spot that IPOT did!
+
+.. image:: examples/testing_clp17_KNITRO/anim2_fps2.gif
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+
+**Optimization times:**
+
+.. image:: examples/testing_clp17_KNITRO/tplot.png
+
+
+**Objective Function Values:**
+
+.. image:: examples/testing_clp16_KNITRO/optplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp17_KNITRO/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp17_KNITRO/longv.png
+.. image:: examples/testing_clp17_KNITRO/ax.png
+.. image:: examples/testing_clp17_KNITRO/jx.png
+.. image:: examples/testing_clp17_KNITRO/sa.png
+.. image:: examples/testing_clp17_KNITRO/sr.png
+.. image:: examples/testing_clp17_KNITRO/yaw.png
+.. image:: examples/testing_clp17_KNITRO/yr.png
+.. image:: examples/testing_clp17_KNITRO/latv.png
+.. image:: examples/testing_clp17_KNITRO/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp17_KNITRO/vt.png
+.. image:: examples/testing_clp17_KNITRO/lt.png

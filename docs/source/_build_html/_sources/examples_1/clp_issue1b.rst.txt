@@ -1,0 +1,38 @@
+Creating Bugs:/
+===============
+
+Issues after updating packages? --> Not the problem!
+------------------------------------------------------------------
+In an attempt to extract more information out of the optimization, the software was updated for JuMP and MathProgBase. This made it so that the solution is zero for everything!!
+
+**Notes & Conclusions:**
+
+  * Somehow the optimal solution is returned even thought the vehicle does not move!
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp3/main.png
+
+After looking into this, I realized that one of the main packages (called MathProgBase) that JuMP uses recently (10/14/2016) had a released tag and that I am now using that new tag.
+
+So, I went back to the previous version:
+::
+
+  julia> Pkg.pin("MathProgBase",v"0.5.6")
+  INFO: Creating MathProgBase branch pinned.11912928.tmp
+  INFO: No packages to install, update or remove
+
+  julia> Pkg.status("MathProgBase")
+   - MathProgBase                  0.5.6              pinned.11912928.tmp
+
+But this did not work!
+
+So, I unpinned the package:
+::
+
+  Pkg.free("MathProgBase")
+
+
+Creating and Fixing Bugs! ----> This was the issue!
+----------------------------------------------------
+By checking the old version this morning vs, the one that I made today, I realized that I created a bug in the definition of the constraints. This can be seen `here <https://github.com/huckl3b3rry87/OCP/commit/96a60ca4057d88f08a1c91240b2c9b2fe29997a8>`_, by looking at the modifications in ``main.jl`` from lines (105-105) to the new lines. Basically, I introduced this bug after relaxing the constraints on the final position to see if that made the problem more feasible. It did not work, and when I reverted back I introduced the bug.

@@ -1,0 +1,33 @@
+Comparison of Working Cases
+==============================
+
+**Comparing Objective Function Values:**
+
+.. image:: examples/testing_clp76/optplot.png
+
+
+**Comparing the Optimization Speeds:**
+
+.. image:: examples/testing_clp76/tplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp76/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp76/longv.png
+.. image:: examples/testing_clp76/ax.png
+.. image:: examples/testing_clp76/jx.png
+.. image:: examples/testing_clp76/sa.png
+.. image:: examples/testing_clp76/sr.png
+.. image:: examples/testing_clp76/yaw.png
+.. image:: examples/testing_clp76/yr.png
+.. image:: examples/testing_clp76/latv.png
+.. image:: examples/testing_clp76/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp76/vt.png
+.. image:: examples/testing_clp76/lt.png

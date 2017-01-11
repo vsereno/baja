@@ -1,0 +1,29 @@
+Relax Obstacle Avoidance Constraint On Initial State || IPOPT
+=============================================================
+
+
+.. image:: examples/testing_clp73gIPOPT/position_fps2.gif
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp73gIPOPT/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp73gIPOPT/longv.png
+.. image:: examples/testing_clp73gIPOPT/ax.png
+.. image:: examples/testing_clp73gIPOPT/jx.png
+.. image:: examples/testing_clp73gIPOPT/sa.png
+.. image:: examples/testing_clp73gIPOPT/sr.png
+.. image:: examples/testing_clp73gIPOPT/yaw.png
+.. image:: examples/testing_clp73gIPOPT/yr.png
+.. image:: examples/testing_clp73gIPOPT/latv.png
+.. image:: examples/testing_clp73gIPOPT/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp73gIPOPT/vt.png
+.. image:: examples/testing_clp73gIPOPT/lt.png

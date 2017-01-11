@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Back to The Trouble Senario &mdash; baja -rc1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="baja -rc1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> baja
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../proj.html">ME 450 Project Requirements Spring 2017</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/software.html">Software and Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes.html">Research Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TODO.html">TO DO</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">baja</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Back to The Trouble Senario</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples_1/clp_issue1zd.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="back-to-the-trouble-senario">
+<h1>Back to The Trouble Senario<a class="headerlink" href="#back-to-the-trouble-senario" title="Permalink to this headline">¶</a></h1>
+<p>In this series of tests, we are trying to get the original trouble senario to work.</p>
+<div class="section" id="test-1">
+<h2>Test 1<a class="headerlink" href="#test-1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Run set up just like the previous single obstacle test, this case fails immediately because the design variable <code class="docutils literal"><span class="pre">dt</span></code> was too coarse and it turned out that was not monotonically increasing the actual time vector (caused very small negative numbers).</li>
+</ul>
+<p>So, we had to modify the formulation (again) so that:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@variable</span><span class="p">(</span> <span class="n">mdl</span><span class="p">,</span> <span class="mf">0.000001</span> <span class="o">&lt;=</span> <span class="n">dt</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.2</span><span class="p">)</span> <span class="c1"># step size</span>
+</pre></div>
+</div>
+<p>Instead of:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@variable</span><span class="p">(</span> <span class="n">mdl</span><span class="p">,</span> <span class="mf">0.</span> <span class="o">&lt;=</span> <span class="n">dt</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.2</span><span class="p">)</span> <span class="c1"># step size</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>This made the problem run past the first optimization</li>
+</ul>
+<p><strong>Notes &amp; Conclusions &amp; Questions:</strong></p>
+<ul>
+<li><p class="first">The optimization fails because the initial solution gets caught in a very difficult spot and eventually due to slight differences between the optimization and the actual vehicle</p>
+<blockquote>
+<div><ul class="simple">
+<li>Eventually this optimization becomes infeasible</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="73_d.html">Change <code class="docutils literal"><span class="pre">dt</span></code> min to small number</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="test-2">
+<h2>Test 2<a class="headerlink" href="#test-2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>In this test</li>
+</ul>
+<p>We change:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x_min</span> <span class="o">=</span> <span class="mi">195</span>
+</pre></div>
+</div>
+<p><strong>Notes &amp; Conclusions &amp; Questions:</strong></p>
+<ul class="simple">
+<li>The optimization fails because the slight differences between the optimization and the cause the actual vehicle to drive into the obstacle&#8217;s <code class="docutils literal"><span class="pre">safety</span> <span class="pre">margin</span></code></li>
+<li>Then when we try to initialize the vehicle position within the <code class="docutils literal"><span class="pre">safety</span> <span class="pre">margin</span></code> there is no feasible solution</li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="73_f.html">Constrain Vehicle to Right</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="test-3">
+<h2>Test 3<a class="headerlink" href="#test-3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>In this test</li>
+</ul>
+<p>We change:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">obs_con</span><span class="p">[</span><span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">Q</span><span class="p">,</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">X_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="p">((</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">X_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">Y_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">sm</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">LR</span> <span class="o">-</span> <span class="n">sm</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">MULT</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sm</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">Y_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="p">((</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">X_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">Y_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">sm</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">LR</span> <span class="o">-</span> <span class="n">sm</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">MULT</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sm</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>To:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">obs_con</span><span class="p">[</span><span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">Q</span><span class="p">,</span><span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">:</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">X_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">a</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="p">((</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">X_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">Y_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">sm</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">LR</span> <span class="o">-</span> <span class="n">sm</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">MULT</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sm</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">Y_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">b</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">+</span><span class="p">((</span><span class="n">sqrt</span><span class="p">((</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">X_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">Y_obs</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">])</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">sm</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">LR</span> <span class="o">-</span> <span class="n">sm</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">MULT</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sm</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Basically, we are relaxing the constraint on obstacle avoidance at the first step. It does not make sense to try an initialize a problem at a slightly infeasible point.</li>
+</ul>
+<p><strong>Notes &amp; Conclusions &amp; Questions:</strong></p>
+<ul class="simple">
+<li>The optimization is successful for KNITRO!</li>
+<li>IPOPT fails bigtime! - just showing the single infeasible solution<ul>
+<li>The initial time is set to <code class="docutils literal"><span class="pre">6.27</span> <span class="pre">s</span></code> so that the obstacles are at a different position</li>
+</ul>
+</li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="73_g.html">Relax Obstacle Avoidance Constraint On Initial State || KNITRO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="73_g2.html">Relax Obstacle Avoidance Constraint On Initial State || IPOPT</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="test-4">
+<h2>Test 4<a class="headerlink" href="#test-4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>In this test</li>
+</ul>
+<p>We change:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x_max</span>  <span class="o">=</span> <span class="mi">400</span>
+<span class="n">x_min</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p>In the previous case we had:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x_max</span>  <span class="o">=</span> <span class="mi">400</span>
+<span class="n">x_min</span> <span class="o">=</span> <span class="mi">195</span>
+</pre></div>
+</div>
+<ul>
+<li><p class="first">In other cases (with the new relaxed obstacle avoidance constraint), we tried:</p>
+<p>A smaller <code class="docutils literal"><span class="pre">x_max</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x_max</span>  <span class="o">=</span> <span class="mi">210</span>
+<span class="n">x_min</span> <span class="o">=</span> <span class="mf">0.</span>
+
+<span class="o">*</span> <span class="n">This</span> <span class="n">had</span> <span class="n">similar</span> <span class="n">results</span>
+</pre></div>
+</div>
+<p>Another smaller <code class="docutils literal"><span class="pre">x_max</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">x_max</span>  <span class="o">=</span> <span class="mi">205</span>
+<span class="n">x_min</span> <span class="o">=</span> <span class="mf">0.</span>
+
+<span class="o">*</span> <span class="n">This</span> <span class="n">actually</span> <span class="n">fails</span> <span class="n">on</span> <span class="n">the</span> <span class="n">first</span> <span class="n">optimization</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>Notes &amp; Conclusions &amp; Questions:</strong></p>
+<ul class="simple">
+<li>Similar to Case 1 for both IPOPT and KNITRO</li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="73_h.html">Change <code class="docutils literal"><span class="pre">x_min</span></code> back to  <code class="docutils literal"><span class="pre">0</span> <span class="pre">m</span></code>  || KNITRO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="73_h2.html">Change <code class="docutils literal"><span class="pre">x_min</span></code> back to  <code class="docutils literal"><span class="pre">0</span> <span class="pre">m</span></code>  || IPOPT</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="playing-with-tolerances-in-ipopt">
+<h2>Playing with Tolerances in IPOPT<a class="headerlink" href="#playing-with-tolerances-in-ipopt" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>When we turn all of the tolerances to infinite, we are able to find <code class="docutils literal"><span class="pre">feasible</span></code> solutions and it runs, but it is VERY far off</li>
+</ul>
+<p>For instance using:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mdl</span>     <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">solver</span> <span class="o">=</span> <span class="n">IpoptSolver</span><span class="p">(</span><span class="n">print_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                    <span class="n">tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>
+                                    <span class="n">dual_inf_tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>
+                                    <span class="n">constr_viol_tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>
+                                    <span class="n">compl_inf_tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>
+                                    <span class="n">acceptable_constr_viol_tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>
+                                    <span class="n">acceptable_tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>
+                                    <span class="n">acceptable_constr_viol_tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>
+                                    <span class="n">acceptable_dual_inf_tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>
+                                    <span class="n">acceptable_compl_inf_tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>
+                                    <span class="n">acceptable_obj_change_tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>
+                                    <span class="n">diverging_iterates_tol</span><span class="o">=</span><span class="n">Inf</span>
+                                    <span class="p">)</span>
+                <span class="p">)</span>
+</pre></div>
+</div>
+<p>Produces feasible results like this:</p>
+<img alt="examples_1/examples/testing_clp73g3IPOPT/anim2_fps2.gif" src="examples_1/examples/testing_clp73g3IPOPT/anim2_fps2.gif" />
+<ul class="simple">
+<li>Maybe there is a <code class="docutils literal"><span class="pre">middle</span> <span class="pre">ground</span></code>, where we are not getting trash yet the results are not overly accurate.</li>
+</ul>
+<p>Next, I turned them on consecutively to the default values to see when the results where reasonable and which constraints where causing issues:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mdl</span>     <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="n">solver</span> <span class="o">=</span> <span class="n">IpoptSolver</span><span class="p">(</span><span class="n">print_level</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                    <span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span>                 <span class="c1"># issue</span>
+                                    <span class="n">dual_inf_tol</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span>
+                                    <span class="n">constr_viol_tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>      <span class="c1"># issue</span>
+                                    <span class="n">compl_inf_tol</span><span class="o">=</span><span class="n">Inf</span><span class="p">,</span>        <span class="c1"># issue</span>
+                                    <span class="n">acceptable_tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span>
+                                    <span class="n">acceptable_constr_viol_tol</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+                                    <span class="n">acceptable_dual_inf_tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e10</span><span class="p">,</span>
+                                    <span class="n">acceptable_compl_inf_tol</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>
+                                    <span class="n">acceptable_obj_change_tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e20</span><span class="p">,</span>
+                                    <span class="n">diverging_iterates_tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e20</span>
+                                    <span class="p">)</span>
+</pre></div>
+</div>
+<p>Based off of the this study, I was unable to find any <code class="docutils literal"><span class="pre">middle</span> <span class="pre">ground</span></code></p>
+<p><strong>Notes &amp; Conclusions &amp; Questions:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>Although it is <strong>VERY important</strong> to note that the solutions that IPOPT are producing are no close to feasible for <code class="docutils literal"><span class="pre">Test</span> <span class="pre">3</span></code>. So, with KNITRO we were playing with tolerances because the solutions that it was passing back were accurtate enough. But, the solution that IPOPT is passing back is not even close to good enough.</li>
+<li>So, while we are playing with tolerances here for IPOPT as well, this is a different case than was seen before with KNITRO.<ul>
+<li>The only way that playing with the tolerances with IPOPT may fix <code class="docutils literal"><span class="pre">Test</span> <span class="pre">3</span></code> is if poor tolerances are leading to convergence on a <strong>poor</strong> solution</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Huckleberry Febbo, Yingshi Zheng, Nicholas Renbergm, Brian Archer, Matthew Chess, Patrick Ransford, Christopher Klein.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'-rc1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

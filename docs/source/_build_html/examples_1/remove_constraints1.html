@@ -1,0 +1,221 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Constrained vs. Unconstrained &mdash; baja -rc1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="baja -rc1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> baja
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../proj.html">ME 450 Project Requirements Spring 2017</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/software.html">Software and Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes.html">Research Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TODO.html">TO DO</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">baja</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Constrained vs. Unconstrained</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples_1/remove_constraints1.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="constrained-vs-unconstrained">
+<h1>Constrained vs. Unconstrained<a class="headerlink" href="#constrained-vs-unconstrained" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>comparison between 23 and 24</li>
+<li>unconstrained is much less jumpy, it also starts with a particular steering angle, and hence a particular tire force</li>
+</ul>
+<div class="section" id="compare-23-and-24">
+<h2>Compare 23 and 24<a class="headerlink" href="#compare-23-and-24" title="Permalink to this headline">¶</a></h2>
+<p><strong>Taking a look at the states:</strong></p>
+<img alt="examples_1/examples/remove_constraints1/main.png" src="examples_1/examples/remove_constraints1/main.png" />
+<p><strong>A closer look at the states and controls:</strong></p>
+<img alt="examples_1/examples/remove_constraints1/longv.png" src="examples_1/examples/remove_constraints1/longv.png" />
+<img alt="examples_1/examples/remove_constraints1/ax.png" src="examples_1/examples/remove_constraints1/ax.png" />
+<img alt="examples_1/examples/remove_constraints1/jx.png" src="examples_1/examples/remove_constraints1/jx.png" />
+<img alt="examples_1/examples/remove_constraints1/sa.png" src="examples_1/examples/remove_constraints1/sa.png" />
+<img alt="examples_1/examples/remove_constraints1/sr.png" src="examples_1/examples/remove_constraints1/sr.png" />
+<img alt="examples_1/examples/remove_constraints1/yaw.png" src="examples_1/examples/remove_constraints1/yaw.png" />
+<img alt="examples_1/examples/remove_constraints1/yr.png" src="examples_1/examples/remove_constraints1/yr.png" />
+<img alt="examples_1/examples/remove_constraints1/latv.png" src="examples_1/examples/remove_constraints1/latv.png" />
+<img alt="examples_1/examples/remove_constraints1/pp.png" src="examples_1/examples/remove_constraints1/pp.png" />
+<p><strong>The tire forces are:</strong></p>
+<img alt="examples_1/examples/remove_constraints1/vt.png" src="examples_1/examples/remove_constraints1/vt.png" />
+<img alt="examples_1/examples/remove_constraints1/lt.png" src="examples_1/examples/remove_constraints1/lt.png" />
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Huckleberry Febbo, Yingshi Zheng, Nicholas Renbergm, Brian Archer, Matthew Chess, Patrick Ransford, Christopher Klein.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'-rc1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

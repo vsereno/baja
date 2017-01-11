@@ -1,0 +1,121 @@
+Same as 21, Except and Easier Case | 22
+========================================
+* new scenario- easier one
+* both IPOPT and KNITRO work at first and eventually fail
+* The signals become more and more erratic as time increases
+
+KNITRO 22
+---------
+
+.. image:: examples/testing_clp22_KNITRO/anim2_fps2.gif
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+
+**Optimization times:**
+
+.. image:: examples/testing_clp22_KNITRO/tplot.png
+
+
+**Objective Function Values:**
+
+.. image:: examples/testing_clp22_KNITRO/optplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp22_KNITRO/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp22_KNITRO/longv.png
+.. image:: examples/testing_clp22_KNITRO/ax.png
+.. image:: examples/testing_clp22_KNITRO/jx.png
+.. image:: examples/testing_clp22_KNITRO/sa.png
+.. image:: examples/testing_clp22_KNITRO/sr.png
+.. image:: examples/testing_clp22_KNITRO/yaw.png
+.. image:: examples/testing_clp22_KNITRO/yr.png
+.. image:: examples/testing_clp22_KNITRO/latv.png
+.. image:: examples/testing_clp22_KNITRO/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp22_KNITRO/vt.png
+.. image:: examples/testing_clp22_KNITRO/lt.png
+
+IPOPT 22
+--------
+
+**Notes & Conclusions & Questions:**
+
+.. image:: examples/testing_clp22_IPOPT/anim2_fps2.gif
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+
+**Optimization times:**
+
+.. image:: examples/testing_clp22_IPOPT/tplot.png
+
+
+**Objective Function Values:**
+
+.. image:: examples/testing_clp22_IPOPT/optplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp22_IPOPT/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp22_IPOPT/longv.png
+.. image:: examples/testing_clp22_IPOPT/ax.png
+.. image:: examples/testing_clp22_IPOPT/jx.png
+.. image:: examples/testing_clp22_IPOPT/sa.png
+.. image:: examples/testing_clp22_IPOPT/sr.png
+.. image:: examples/testing_clp22_IPOPT/yaw.png
+.. image:: examples/testing_clp22_IPOPT/yr.png
+.. image:: examples/testing_clp22_IPOPT/latv.png
+.. image:: examples/testing_clp22_IPOPT/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp22_IPOPT/vt.png
+.. image:: examples/testing_clp22_IPOPT/lt.png
+
+IPOPT vs. KNITRO 22
+-------------------
+
+**Notes & Conclusions & Questions:**
+
+**Comparing Objective Function Values:**
+
+.. image:: examples/testing_clp22/optplot.png
+
+
+**Comparing the Optimization Speeds:**
+
+.. image:: examples/testing_clp22/tplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp22/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp22/longv.png
+.. image:: examples/testing_clp22/ax.png
+.. image:: examples/testing_clp22/jx.png
+.. image:: examples/testing_clp22/sa.png
+.. image:: examples/testing_clp22/sr.png
+.. image:: examples/testing_clp22/yaw.png
+.. image:: examples/testing_clp22/yr.png
+.. image:: examples/testing_clp22/latv.png
+.. image:: examples/testing_clp22/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp22/vt.png
+.. image:: examples/testing_clp22/lt.png

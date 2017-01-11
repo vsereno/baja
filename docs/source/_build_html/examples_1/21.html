@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>New DVs for SR and JX and Test | 21 &mdash; baja -rc1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="baja -rc1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> baja
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../proj.html">ME 450 Project Requirements Spring 2017</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/software.html">Software and Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes.html">Research Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TODO.html">TO DO</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">baja</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>New DVs for SR and JX and Test | 21</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples_1/21.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="new-dvs-for-sr-and-jx-and-test-21">
+<h1>New DVs for SR and JX and Test | 21<a class="headerlink" href="#new-dvs-for-sr-and-jx-and-test-21" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>added new dvs for SR and JX so that I can properly do Euler Backwards, now the dynamics do not depend on the first SR and JX, but they are still constrained<ul>
+<li>fixed the bump of AX at the end</li>
+<li>works with IPOT now under the correct settings, fails under original</li>
+<li>now it is messed up at the start; what I would expect</li>
+<li>it is probably better to be accurate at the beginning than the end</li>
+</ul>
+</li>
+<li>not turning enough, in the real simulation<ul>
+<li>since it was already pushing the vehicle to the limit -&gt; maybe now it actually is infeasible</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="knitro-21">
+<h2>KNITRO 21<a class="headerlink" href="#knitro-21" title="Permalink to this headline">¶</a></h2>
+<img alt="examples_1/examples/testing_clp21_KNITRO/anim2_fps2.gif" src="examples_1/examples/testing_clp21_KNITRO/anim2_fps2.gif" />
+<p>For a closer look at the end (last optimization) of the static plots, look below.</p>
+<p><strong>Taking a look at the states:</strong></p>
+<img alt="examples_1/examples/testing_clp21_KNITRO/main.png" src="examples_1/examples/testing_clp21_KNITRO/main.png" />
+<p><strong>A closer look at the states and controls:</strong></p>
+<img alt="examples_1/examples/testing_clp21_KNITRO/longv.png" src="examples_1/examples/testing_clp21_KNITRO/longv.png" />
+<img alt="examples_1/examples/testing_clp21_KNITRO/ax.png" src="examples_1/examples/testing_clp21_KNITRO/ax.png" />
+<img alt="examples_1/examples/testing_clp21_KNITRO/jx.png" src="examples_1/examples/testing_clp21_KNITRO/jx.png" />
+<img alt="examples_1/examples/testing_clp21_KNITRO/sa.png" src="examples_1/examples/testing_clp21_KNITRO/sa.png" />
+<img alt="examples_1/examples/testing_clp21_KNITRO/sr.png" src="examples_1/examples/testing_clp21_KNITRO/sr.png" />
+<img alt="examples_1/examples/testing_clp21_KNITRO/yaw.png" src="examples_1/examples/testing_clp21_KNITRO/yaw.png" />
+<img alt="examples_1/examples/testing_clp21_KNITRO/yr.png" src="examples_1/examples/testing_clp21_KNITRO/yr.png" />
+<img alt="examples_1/examples/testing_clp21_KNITRO/latv.png" src="examples_1/examples/testing_clp21_KNITRO/latv.png" />
+<img alt="examples_1/examples/testing_clp21_KNITRO/pp.png" src="examples_1/examples/testing_clp21_KNITRO/pp.png" />
+<p><strong>The tire forces are:</strong></p>
+<img alt="examples_1/examples/testing_clp21_KNITRO/vt.png" src="examples_1/examples/testing_clp21_KNITRO/vt.png" />
+<img alt="examples_1/examples/testing_clp21_KNITRO/lt.png" src="examples_1/examples/testing_clp21_KNITRO/lt.png" />
+</div>
+<div class="section" id="ipopt-21">
+<h2>IPOPT 21<a class="headerlink" href="#ipopt-21" title="Permalink to this headline">¶</a></h2>
+<img alt="examples_1/examples/testing_clp21_IPOPT/anim2_fps2.gif" src="examples_1/examples/testing_clp21_IPOPT/anim2_fps2.gif" />
+<p>For a closer look at the end (last optimization) of the static plots, look below.</p>
+<p><strong>Taking a look at the states:</strong></p>
+<img alt="examples_1/examples/testing_clp21_IPOPT/main.png" src="examples_1/examples/testing_clp21_IPOPT/main.png" />
+<p><strong>A closer look at the states and controls:</strong></p>
+<img alt="examples_1/examples/testing_clp21_IPOPT/longv.png" src="examples_1/examples/testing_clp21_IPOPT/longv.png" />
+<img alt="examples_1/examples/testing_clp21_IPOPT/ax.png" src="examples_1/examples/testing_clp21_IPOPT/ax.png" />
+<img alt="examples_1/examples/testing_clp21_IPOPT/jx.png" src="examples_1/examples/testing_clp21_IPOPT/jx.png" />
+<img alt="examples_1/examples/testing_clp21_IPOPT/sa.png" src="examples_1/examples/testing_clp21_IPOPT/sa.png" />
+<img alt="examples_1/examples/testing_clp21_IPOPT/sr.png" src="examples_1/examples/testing_clp21_IPOPT/sr.png" />
+<img alt="examples_1/examples/testing_clp21_IPOPT/yaw.png" src="examples_1/examples/testing_clp21_IPOPT/yaw.png" />
+<img alt="examples_1/examples/testing_clp21_IPOPT/yr.png" src="examples_1/examples/testing_clp21_IPOPT/yr.png" />
+<img alt="examples_1/examples/testing_clp21_IPOPT/latv.png" src="examples_1/examples/testing_clp21_IPOPT/latv.png" />
+<img alt="examples_1/examples/testing_clp21_IPOPT/pp.png" src="examples_1/examples/testing_clp21_IPOPT/pp.png" />
+<p><strong>The tire forces are:</strong></p>
+<img alt="examples_1/examples/testing_clp21_IPOPT/vt.png" src="examples_1/examples/testing_clp21_IPOPT/vt.png" />
+<img alt="examples_1/examples/testing_clp21_IPOPT/lt.png" src="examples_1/examples/testing_clp21_IPOPT/lt.png" />
+</div>
+<div class="section" id="ipopt-vs-knitro-21">
+<h2>IPOPT vs. KNITRO 21<a class="headerlink" href="#ipopt-vs-knitro-21" title="Permalink to this headline">¶</a></h2>
+<p><strong>Taking a look at the states:</strong></p>
+<img alt="examples_1/examples/testing_clp21/main.png" src="examples_1/examples/testing_clp21/main.png" />
+<p><strong>A closer look at the states and controls:</strong></p>
+<img alt="examples_1/examples/testing_clp21/longv.png" src="examples_1/examples/testing_clp21/longv.png" />
+<img alt="examples_1/examples/testing_clp21/ax.png" src="examples_1/examples/testing_clp21/ax.png" />
+<img alt="examples_1/examples/testing_clp21/jx.png" src="examples_1/examples/testing_clp21/jx.png" />
+<img alt="examples_1/examples/testing_clp21/sa.png" src="examples_1/examples/testing_clp21/sa.png" />
+<img alt="examples_1/examples/testing_clp21/sr.png" src="examples_1/examples/testing_clp21/sr.png" />
+<img alt="examples_1/examples/testing_clp21/yaw.png" src="examples_1/examples/testing_clp21/yaw.png" />
+<img alt="examples_1/examples/testing_clp21/yr.png" src="examples_1/examples/testing_clp21/yr.png" />
+<img alt="examples_1/examples/testing_clp21/latv.png" src="examples_1/examples/testing_clp21/latv.png" />
+<img alt="examples_1/examples/testing_clp21/pp.png" src="examples_1/examples/testing_clp21/pp.png" />
+<p><strong>The tire forces are:</strong></p>
+<img alt="examples_1/examples/testing_clp21/vt.png" src="examples_1/examples/testing_clp21/vt.png" />
+<img alt="examples_1/examples/testing_clp21/lt.png" src="examples_1/examples/testing_clp21/lt.png" />
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Huckleberry Febbo, Yingshi Zheng, Nicholas Renbergm, Brian Archer, Matthew Chess, Patrick Ransford, Christopher Klein.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'-rc1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

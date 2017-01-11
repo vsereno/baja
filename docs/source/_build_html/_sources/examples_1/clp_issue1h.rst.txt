@@ -1,0 +1,37 @@
+Prediction Horizon = 1.0 s
+=============================
+**Notes & Conclusions & Questions:**
+
+  * In this example the execution horizon was changed to ``1 s``
+  * It is still infeasible around the same location
+
+.. image:: examples/testing_clp9/anim2_fps2.gif
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+This is the solve time for IPOPT ( including an infeasible evaluation (#9)):
+
+.. image:: examples/testing_clp9/tplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp9/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp9/longv.png
+.. image:: examples/testing_clp9/ax.png
+.. image:: examples/testing_clp9/jx.png
+.. image:: examples/testing_clp9/sa.png
+.. image:: examples/testing_clp9/sr.png
+.. image:: examples/testing_clp9/yaw.png
+.. image:: examples/testing_clp9/yr.png
+.. image:: examples/testing_clp9/latv.png
+.. image:: examples/testing_clp9/pp.png
+
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp9/vt.png
+.. image:: examples/testing_clp9/lt.png

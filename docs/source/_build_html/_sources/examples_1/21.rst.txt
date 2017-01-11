@@ -1,0 +1,92 @@
+New DVs for SR and JX and Test | 21
+====================================
+* added new dvs for SR and JX so that I can properly do Euler Backwards, now the dynamics do not depend on the first SR and JX, but they are still constrained
+
+  * fixed the bump of AX at the end
+  * works with IPOT now under the correct settings, fails under original
+  * now it is messed up at the start; what I would expect
+  * it is probably better to be accurate at the beginning than the end
+* not turning enough, in the real simulation
+
+  * since it was already pushing the vehicle to the limit -> maybe now it actually is infeasible
+
+KNITRO 21
+---------
+
+.. image:: examples/testing_clp21_KNITRO/anim2_fps2.gif
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp21_KNITRO/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp21_KNITRO/longv.png
+.. image:: examples/testing_clp21_KNITRO/ax.png
+.. image:: examples/testing_clp21_KNITRO/jx.png
+.. image:: examples/testing_clp21_KNITRO/sa.png
+.. image:: examples/testing_clp21_KNITRO/sr.png
+.. image:: examples/testing_clp21_KNITRO/yaw.png
+.. image:: examples/testing_clp21_KNITRO/yr.png
+.. image:: examples/testing_clp21_KNITRO/latv.png
+.. image:: examples/testing_clp21_KNITRO/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp21_KNITRO/vt.png
+.. image:: examples/testing_clp21_KNITRO/lt.png
+
+IPOPT 21
+--------
+
+.. image:: examples/testing_clp21_IPOPT/anim2_fps2.gif
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp21_IPOPT/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp21_IPOPT/longv.png
+.. image:: examples/testing_clp21_IPOPT/ax.png
+.. image:: examples/testing_clp21_IPOPT/jx.png
+.. image:: examples/testing_clp21_IPOPT/sa.png
+.. image:: examples/testing_clp21_IPOPT/sr.png
+.. image:: examples/testing_clp21_IPOPT/yaw.png
+.. image:: examples/testing_clp21_IPOPT/yr.png
+.. image:: examples/testing_clp21_IPOPT/latv.png
+.. image:: examples/testing_clp21_IPOPT/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp21_IPOPT/vt.png
+.. image:: examples/testing_clp21_IPOPT/lt.png
+
+IPOPT vs. KNITRO 21
+-------------------
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp21/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp21/longv.png
+.. image:: examples/testing_clp21/ax.png
+.. image:: examples/testing_clp21/jx.png
+.. image:: examples/testing_clp21/sa.png
+.. image:: examples/testing_clp21/sr.png
+.. image:: examples/testing_clp21/yaw.png
+.. image:: examples/testing_clp21/yr.png
+.. image:: examples/testing_clp21/latv.png
+.. image:: examples/testing_clp21/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp21/vt.png
+.. image:: examples/testing_clp21/lt.png

@@ -1,0 +1,122 @@
+Closing the Loop
+================
+
+This is an example where the loop is being closed using the 3DOF vehicle model.
+
+In this simulation:
+  * The ``VehicleModels.jl`` package is being used for the first time in closed loop. To do this:
+      1. The optimization is solved
+      2. 0.5 s of the optimized control signals are sent to ``VehicleModels.jl``
+      3. ``VehicleModels.jl`` solves the differential equations using RK4
+      4. The solution is sampled at 100 points for simulation purposes
+      5. The last point in the solution is used to constrain the initial points in the next optimization
+      6. Repeat Steps 1 - 5
+
+In the animation below, it can be seen that the vehicle stops moving. This is the point where:
+  * The optimization problem is infeasible and no solution is returned.
+
+From this `link <http://www.coin-or.org/Ipopt/documentation/node36.html>`_:
+::
+
+  Infeasible_Problem_Detected:
+      Console Message: EXIT: Converged to a point of local infeasibility. Problem may be infeasible.
+      The restoration phase converged to a point that is a minimizer for the constraint violation
+      (in the $ \ell_1$-norm), but is not feasible for the original problem. This indicates that
+      the problem may be infeasible (or at least that the algorithm is stuck at a locally infeasible
+      point). The returned point (the minimizer of the constraint violation) might help you to find
+      which constraint is causing the problem. If you believe that the NLP is feasible, it might help
+      to start the optimization from a different point.
+
+
+* The problem is infeasible because the upper bound that I set on time is 10s
+* It should be able to get to the goal in under about 7s according to previous studies
+
+    * I am not currently sure why we are seeing this (it is a recent development), but it seems like:
+       1. there must be an issue with the way that I am updating time
+       2. there may be a bug of some kind
+       3. increase in time may also be due to the continued re-solving of the infeasible optimization problem
+
+**will be looking into these ideas more!**
+
+.. image:: examples/testing_clp/anim2_fps2.gif
+
+This is the solve time for IPOPT:
+
+.. image:: examples/testing_clp/tplot.png
+
+.. _investigation_of_clp_issue1:
+
+
+Investigation of Infeasibility when Closing the Loop
+----------------------------------------------------
+.. toctree::
+   :maxdepth: 2
+
+   clp_issue1a
+   clp_issue1b
+   clp_issue1c
+   clp_issue1d
+   clp_issue1e
+   clp_issue1f
+   clp_issue1g
+   clp_issue1h
+   clp_issue1i
+   clp_issue1j
+   clp_issue1k
+   clp_issue1l
+   clp_issue1m
+
+Solving NLP using KNITRO
+------------------------
+.. toctree::
+   :maxdepth: 2
+
+   clp_issue1n
+   clp_issue1o
+   clp_issue1p
+   clp_issue1q
+   clp_issue1r
+   clp_issue1s
+   clp_issue1t
+
+Constraining the Entire ``X0``
+------------------------------
+.. toctree::
+  :maxdepth: 2
+
+  clp_issue1u
+  clp_issue1v
+  clp_issue1w
+  clp_issue1x
+  clp_issue1y
+  clp_issue1z
+
+Constraining the entire ``ax``
+------------------------------
+.. toctree::
+  :maxdepth: 2
+
+  clp_issue1za
+
+Investigating Eulers's Backward Difference
+-------------------------------------------
+.. toctree::
+  :maxdepth: 2
+
+  clp_issue1zb
+
+
+Adjusting Tolerances
+--------------------
+.. toctree::
+  :maxdepth: 2
+
+  clp_issue1zc
+  clp_issue1zd
+
+Implementing New Integration Schemes within the Optimization
+--------------------------------------------------------------
+.. toctree::
+  :maxdepth: 2
+
+  clp_issue1ze

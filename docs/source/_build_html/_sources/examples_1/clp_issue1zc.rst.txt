@@ -1,0 +1,81 @@
+Adjusting Tolerances in KNITRO
+==============================
+
+As expected from previous results the tolerances play an important role in optimization.
+
+In KNITRO, the criteria for optimization is described `here <https://www.artelys.com/tools/knitro_doc/2_userGuide/termination.html>`_.
+
+We compare three test cases, were we change the parameters:
+
+
+Case a)
+-------
+This is the control case, all variables are set to default values.
+
+**Notes & Conclusions & Questions:**
+
+This case fails even though the constraints were nearly satisfied, like:
+::
+
+    julia> getvalue(psi0)
+    1.3772404760181705
+    julia> getvalue(psi[1])
+    1.3697550013526445
+
+
+Where:
+::
+
+    @NLconstraint(mdl, psi0_con, psi[1] == psi0);
+
+.. toctree::
+   :maxdepth: 2
+
+   73_a
+
+Case b)
+-------
+In this case, we adjust the feasibility tolerances on the constraints as:
+::
+
+    feastol=1.0e20
+    feastol_abs=1e-2
+
+**Notes & Conclusions & Questions:**
+* Now this case is not converging even though the objective function value is not changing much.
+
+.. toctree::
+   :maxdepth: 2
+
+   73_b
+
+Case c)
+-------
+So, not we will also relax the tolerance on the what the solver considers optimal as:
+::
+
+    feastol=1.0e20
+    feastol_abs=1e-2
+    opttol=1.0e20
+    opttol_abs=1e-1
+
+**Notes & Conclusions & Questions:**
+  * Vehicle gets to goal!
+
+.. toctree::
+   :maxdepth: 2
+
+   73_c
+
+Comparing All Tests
+-------------------
+ **Notes & Conclusions & Questions:**
+   * Objective function value is sacrificed for case C
+   * Case C is the only one that gets to the goal
+   * Case C is able to run much faster that the other cases ( nearly real-time!!)
+
+
+ .. toctree::
+    :maxdepth: 2
+
+    73_compare

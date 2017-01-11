@@ -1,0 +1,40 @@
+KNITRO with trapezoidal Method
+==============================
+
+
+.. image:: examples/testing_clp75KNITRO/anim2_fps2.gif
+
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+
+**Optimization times:**
+
+.. image:: examples/testing_clp75KNITRO/tplot.png
+
+
+**Objective Function Values:**
+
+.. image:: examples/testing_clp75KNITRO/optplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp75KNITRO/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp75KNITRO/longv.png
+.. image:: examples/testing_clp75KNITRO/ax.png
+.. image:: examples/testing_clp75KNITRO/jx.png
+.. image:: examples/testing_clp75KNITRO/sa.png
+.. image:: examples/testing_clp75KNITRO/sr.png
+.. image:: examples/testing_clp75KNITRO/yaw.png
+.. image:: examples/testing_clp75KNITRO/yr.png
+.. image:: examples/testing_clp75KNITRO/latv.png
+.. image:: examples/testing_clp75KNITRO/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp75KNITRO/vt.png
+.. image:: examples/testing_clp75KNITRO/lt.png

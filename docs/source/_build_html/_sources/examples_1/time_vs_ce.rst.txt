@@ -1,0 +1,29 @@
+First Optimization
+==================
+
+In this example only the first optimization is shown, that is, the loop is **not** being closed.
+
+.. image:: examples/time_vs_ce/position_fps2.gif
+
+It can be seen that when control effort is included in the objective function the vehicle reduces the control effort significantly and when compared to time, when time is the only thing in the objective function, we are able to arrive at the goal sooner.
+
+
+**Taking a look at the states:**
+
+.. image:: examples/time_vs_ce/main.png
+
+**The tire forces are:**
+
+.. image:: examples/time_vs_ce/vt.png
+.. image:: examples/time_vs_ce/lt.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/time_vs_ce/longv.png
+.. image:: examples/time_vs_ce/ax.png
+.. image:: examples/time_vs_ce/jx.png
+.. image:: examples/time_vs_ce/sa.png
+.. image:: examples/time_vs_ce/sr.png
+.. image:: examples/time_vs_ce/yaw.png
+.. image:: examples/time_vs_ce/yr.png
+.. image:: examples/time_vs_ce/latv.png

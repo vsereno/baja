@@ -1,0 +1,17 @@
+Problem is too large for student version of KNITRO
+==================================================
+
+Using the student version:
+::
+
+  Knitro 10.1.2 STUDENT LICENSE (problem size limit = 300)
+
+  This edition is limited to 300 variables and 300 constraints,
+  but you are requesting 551 variables and 732 constraints.
+  To solve problems this large, you need to buy a license.
+  Academic pricing is available.  See http://www.artelys.com/
+
+
+Was able to download a 1 month trial of the full version of KNITRO!
+  * Set up the license
+  * Added ENV[] variables

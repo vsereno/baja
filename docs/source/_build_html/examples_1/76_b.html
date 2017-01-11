@@ -1,0 +1,287 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>IPOPT with Trapezoidal Method &mdash; baja -rc1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="baja -rc1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> baja
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../proj.html">ME 450 Project Requirements Spring 2017</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/software.html">Software and Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes.html">Research Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TODO.html">TO DO</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">baja</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>IPOPT with Trapezoidal Method</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples_1/76_b.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ipopt-with-trapezoidal-method">
+<h1>IPOPT with Trapezoidal Method<a class="headerlink" href="#ipopt-with-trapezoidal-method" title="Permalink to this headline">¶</a></h1>
+<p>There are two cases on this page, the first one (Case 1) works, the second on (Case 2) does not work.</p>
+<div class="section" id="case-1-pass-tol-1e-2-and-dt-min-0-000001">
+<h2>Case 1: (PASS) <code class="docutils literal"><span class="pre">tol</span> <span class="pre">=</span> <span class="pre">1e-2</span></code> and <code class="docutils literal"><span class="pre">dt_min</span> <span class="pre">=</span> <span class="pre">0.000001</span></code><a class="headerlink" href="#case-1-pass-tol-1e-2-and-dt-min-0-000001" title="Permalink to this headline">¶</a></h2>
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/anim2_fps2.gif" src="examples_1/examples/testing_clp76trap2IPOPT/anim2_fps2.gif" />
+<p>For a closer look at the end (last optimization) of the static plots, look below.</p>
+<p><strong>Optimization times:</strong></p>
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/tplot.png" src="examples_1/examples/testing_clp76trap2IPOPT/tplot.png" />
+<p><strong>Objective Function Values:</strong></p>
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/optplot.png" src="examples_1/examples/testing_clp76trap2IPOPT/optplot.png" />
+<p><strong>Taking a look at the states:</strong></p>
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/main.png" src="examples_1/examples/testing_clp76trap2IPOPT/main.png" />
+<p><strong>A closer look at the states and controls:</strong></p>
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/longv.png" src="examples_1/examples/testing_clp76trap2IPOPT/longv.png" />
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/ax.png" src="examples_1/examples/testing_clp76trap2IPOPT/ax.png" />
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/jx.png" src="examples_1/examples/testing_clp76trap2IPOPT/jx.png" />
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/sa.png" src="examples_1/examples/testing_clp76trap2IPOPT/sa.png" />
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/sr.png" src="examples_1/examples/testing_clp76trap2IPOPT/sr.png" />
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/yaw.png" src="examples_1/examples/testing_clp76trap2IPOPT/yaw.png" />
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/yr.png" src="examples_1/examples/testing_clp76trap2IPOPT/yr.png" />
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/latv.png" src="examples_1/examples/testing_clp76trap2IPOPT/latv.png" />
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/pp.png" src="examples_1/examples/testing_clp76trap2IPOPT/pp.png" />
+<p><strong>The tire forces are:</strong></p>
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/vt.png" src="examples_1/examples/testing_clp76trap2IPOPT/vt.png" />
+<img alt="examples_1/examples/testing_clp76trap2IPOPT/lt.png" src="examples_1/examples/testing_clp76trap2IPOPT/lt.png" />
+</div>
+<div class="section" id="case-2-fail-tol-1e-3-and-dt-min-0-000001-dt-min-0-00001">
+<h2>Case 2: (FAIL) <code class="docutils literal"><span class="pre">tol</span> <span class="pre">=</span> <span class="pre">1e-3</span></code> and <code class="docutils literal"><span class="pre">dt_min</span> <span class="pre">=</span> <span class="pre">0.000001</span></code> &amp; <code class="docutils literal"><span class="pre">dt_min=0.00001</span></code><a class="headerlink" href="#case-2-fail-tol-1e-3-and-dt-min-0-000001-dt-min-0-00001" title="Permalink to this headline">¶</a></h2>
+<p>This test does not work:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">tol</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span>
+</pre></div>
+</div>
+<p>Also, note that when:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dt_min</span> <span class="o">=</span> <span class="mf">0.00001</span>
+</pre></div>
+</div>
+<p>The optimization starts at <code class="docutils literal"><span class="pre">-1.31</span> <span class="pre">s</span></code>!</p>
+<p>The following results show are using:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">dt_min</span> <span class="o">=</span> <span class="mf">0.000001</span>
+</pre></div>
+</div>
+<p>This <code class="docutils literal"><span class="pre">dt_min</span></code> issue can probably be fixed if I do a better job of filtering the optimized solution vectors and decrease dt_min to a very small number or maybe even``0.0``, but then we run into an issue where the controls can change without any time elapsing, so we will have to select one of the controls.</p>
+<p>Even thought the solution looks successful, it is actually infeasible!</p>
+<p>Looking at some of the dual infeasibilities:</p>
+<p>A look at the initial condition constraints:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>julia&gt; X0con
+1×10 DataFrames.DataFrame
+│ Row │ step │ t0_con  │ x0_con   │ y0_con   │ psi0_con │ v0_con  │ u0_con  │ sa0_con │ ax0_con  │ r0_con  │
+├─────┼──────┼─────────┼──────────┼──────────┼──────────┼─────────┼─────────┼─────────┼──────────┼─────────┤
+│ 1   │ 1    │ 351.141 │ -9.98949 │ -679.312 │ 110.406  │ 2.62567 │ -261.09 │ 149.19  │ -53.6708 │ 9.54035 │
+</pre></div>
+</div>
+<p>For the start of the dynamics:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>julia&gt; Ncon
+60×9 DataFrames.DataFrame
+│ Row │ step │ x_con    │ y_con   │ v_con      │ r_con       │ psi_con     │ u_con    │ sa_con       │ ax_con       │
+├─────┼──────┼──────────┼─────────┼────────────┼─────────────┼─────────────┼──────────┼──────────────┼──────────────┤
+│ 1   │ 1    │ 9.98949  │ 299.48  │ -2.65194   │ -8.16059    │ -95.4207    │ 231.141  │ -114.989     │ 30.5652      │
+│ 2   │ 2    │ 9.53573  │ 49.4721 │ -2.51347   │ -6.51774    │ -81.5211    │ 200.243  │ -78.0588     │ 3.67842      │
+│ 3   │ 3    │ 9.53565  │ 49.4646 │ -2.25119   │ -5.06935    │ -65.3441    │ 195.404  │ -51.8642     │ -0.000106054 │
+│ 4   │ 4    │ 9.53553  │ 49.4582 │ -1.70356   │ -2.99533    │ -40.7686    │ 187.49   │ -18.4582     │ -0.000129606 │
+</pre></div>
+</div>
+<p>For the start of the third obstacle:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>60×2 DataFrames.DataFrame
+│ Row │ step │ obs_con     │
+├─────┼──────┼─────────────┤
+│ 1   │ 2    │ -875.005    │
+│ 2   │ 3    │ -6.73818e-6 │
+│ 3   │ 4    │ 2.63448e-5  │
+</pre></div>
+</div>
+<p>For a closer look at the end (last optimization) of the static plots, look below.</p>
+<p><strong>Taking a look at the states:</strong></p>
+<img alt="examples_1/examples/testing_clp76trapIPOPT/main.png" src="examples_1/examples/testing_clp76trapIPOPT/main.png" />
+<p><strong>A closer look at the states and controls:</strong></p>
+<img alt="examples_1/examples/testing_clp76trapIPOPT/longv.png" src="examples_1/examples/testing_clp76trapIPOPT/longv.png" />
+<img alt="examples_1/examples/testing_clp76trapIPOPT/ax.png" src="examples_1/examples/testing_clp76trapIPOPT/ax.png" />
+<img alt="examples_1/examples/testing_clp76trapIPOPT/jx.png" src="examples_1/examples/testing_clp76trapIPOPT/jx.png" />
+<img alt="examples_1/examples/testing_clp76trapIPOPT/sa.png" src="examples_1/examples/testing_clp76trapIPOPT/sa.png" />
+<img alt="examples_1/examples/testing_clp76trapIPOPT/sr.png" src="examples_1/examples/testing_clp76trapIPOPT/sr.png" />
+<img alt="examples_1/examples/testing_clp76trapIPOPT/yaw.png" src="examples_1/examples/testing_clp76trapIPOPT/yaw.png" />
+<img alt="examples_1/examples/testing_clp76trapIPOPT/yr.png" src="examples_1/examples/testing_clp76trapIPOPT/yr.png" />
+<img alt="examples_1/examples/testing_clp76trapIPOPT/latv.png" src="examples_1/examples/testing_clp76trapIPOPT/latv.png" />
+<img alt="examples_1/examples/testing_clp76trapIPOPT/pp.png" src="examples_1/examples/testing_clp76trapIPOPT/pp.png" />
+<p><strong>The tire forces are:</strong></p>
+<img alt="examples_1/examples/testing_clp76trapIPOPT/vt.png" src="examples_1/examples/testing_clp76trapIPOPT/vt.png" />
+<img alt="examples_1/examples/testing_clp76trapIPOPT/lt.png" src="examples_1/examples/testing_clp76trapIPOPT/lt.png" />
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Huckleberry Febbo, Yingshi Zheng, Nicholas Renbergm, Brian Archer, Matthew Chess, Patrick Ransford, Christopher Klein.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'-rc1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

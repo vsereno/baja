@@ -1,0 +1,181 @@
+Back to The Trouble Senario
+===========================
+
+In this series of tests, we are trying to get the original trouble senario to work.
+
+Test 1
+------
+* Run set up just like the previous single obstacle test, this case fails immediately because the design variable ``dt`` was too coarse and it turned out that was not monotonically increasing the actual time vector (caused very small negative numbers).
+
+So, we had to modify the formulation (again) so that:
+::
+
+    @variable( mdl, 0.000001 <= dt[1:N] <= 0.2) # step size
+
+Instead of:
+::
+
+    @variable( mdl, 0. <= dt[1:N] <= 0.2) # step size
+
+* This made the problem run past the first optimization
+
+**Notes & Conclusions & Questions:**
+
+* The optimization fails because the initial solution gets caught in a very difficult spot and eventually due to slight differences between the optimization and the actual vehicle
+
+    * Eventually this optimization becomes infeasible
+
+.. toctree::
+   :maxdepth: 2
+
+   73_d
+
+Test 2
+------
+* In this test
+
+We change:
+::
+
+    x_min = 195
+
+**Notes & Conclusions & Questions:**
+
+* The optimization fails because the slight differences between the optimization and the cause the actual vehicle to drive into the obstacle's ``safety margin``
+
+* Then when we try to initialize the vehicle position within the ``safety margin`` there is no feasible solution
+
+.. toctree::
+  :maxdepth: 2
+
+  73_f
+
+Test 3
+------
+* In this test
+
+We change:
+::
+
+    @NLconstraint(mdl, obs_con[j=1:Q,i=1:N+1], 1 <= ((x[i]-X_obs[j,i])^2)/((a[j]+((sqrt((x[i]-X_obs[j,i])^2+(y[i]-Y_obs[j,i])^2) - sm)/(LR - sm)*(MULT - 1) + 1)*sm)^2) + ((y[i]-Y_obs[j,i])^2)/((b[j]+((sqrt((x[i]-X_obs[j,i])^2+(y[i]-Y_obs[j,i])^2) - sm)/(LR - sm)*(MULT - 1) + 1)*sm)^2))
+
+To:
+::
+
+    @NLconstraint(mdl, obs_con[j=1:Q,i=2:N+1], 1 <= ((x[i]-X_obs[j,i])^2)/((a[j]+((sqrt((x[i]-X_obs[j,i])^2+(y[i]-Y_obs[j,i])^2) - sm)/(LR - sm)*(MULT - 1) + 1)*sm)^2) + ((y[i]-Y_obs[j,i])^2)/((b[j]+((sqrt((x[i]-X_obs[j,i])^2+(y[i]-Y_obs[j,i])^2) - sm)/(LR - sm)*(MULT - 1) + 1)*sm)^2))
+
+
+* Basically, we are relaxing the constraint on obstacle avoidance at the first step. It does not make sense to try an initialize a problem at a slightly infeasible point.
+
+**Notes & Conclusions & Questions:**
+
+* The optimization is successful for KNITRO!
+* IPOPT fails bigtime! - just showing the single infeasible solution
+
+  * The initial time is set to ``6.27 s`` so that the obstacles are at a different position
+
+
+.. toctree::
+   :maxdepth: 2
+
+   73_g
+   73_g2
+
+Test 4
+------
+* In this test
+
+We change:
+::
+
+    x_max  = 400
+    x_min = 0
+
+In the previous case we had:
+::
+
+    x_max  = 400
+    x_min = 195
+
+* In other cases (with the new relaxed obstacle avoidance constraint), we tried:
+
+  A smaller ``x_max``:
+  ::
+
+      x_max  = 210
+      x_min = 0.
+
+      * This had similar results
+
+  Another smaller ``x_max``:
+  ::
+
+      x_max  = 205
+      x_min = 0.
+
+      * This actually fails on the first optimization
+
+
+**Notes & Conclusions & Questions:**
+
+* Similar to Case 1 for both IPOPT and KNITRO
+
+.. toctree::
+  :maxdepth: 2
+
+  73_h
+  73_h2
+
+Playing with Tolerances in IPOPT
+--------------------------------
+* When we turn all of the tolerances to infinite, we are able to find ``feasible`` solutions and it runs, but it is VERY far off
+
+For instance using:
+::
+
+    mdl     = Model(solver = IpoptSolver(print_level=1,
+                                        tol=Inf,
+                                        dual_inf_tol=Inf,
+                                        constr_viol_tol=Inf,
+                                        compl_inf_tol=Inf,
+                                        acceptable_constr_viol_tol=Inf,
+                                        acceptable_tol=Inf,
+                                        acceptable_constr_viol_tol=Inf,
+                                        acceptable_dual_inf_tol=Inf,
+                                        acceptable_compl_inf_tol=Inf,
+                                        acceptable_obj_change_tol=Inf,
+                                        diverging_iterates_tol=Inf
+                                        )
+                    )
+
+Produces feasible results like this:
+
+
+.. image:: examples/testing_clp73g3IPOPT/anim2_fps2.gif
+
+* Maybe there is a ``middle ground``, where we are not getting trash yet the results are not overly accurate.
+
+Next, I turned them on consecutively to the default values to see when the results where reasonable and which constraints where causing issues:
+::
+
+    mdl     = Model(solver = IpoptSolver(print_level=1,
+                                        tol=1e-2,                 # issue
+                                        dual_inf_tol=1.,
+                                        constr_viol_tol=Inf,      # issue
+                                        compl_inf_tol=Inf,        # issue
+                                        acceptable_tol=1e-6,
+                                        acceptable_constr_viol_tol=0.01,
+                                        acceptable_dual_inf_tol=1e10,
+                                        acceptable_compl_inf_tol=0.01,
+                                        acceptable_obj_change_tol=1e20,
+                                        diverging_iterates_tol=1e20
+                                        )
+
+Based off of the this study, I was unable to find any ``middle ground``
+
+**Notes & Conclusions & Questions:**
+
+  * Although it is **VERY important** to note that the solutions that IPOPT are producing are no close to feasible for ``Test 3``. So, with KNITRO we were playing with tolerances because the solutions that it was passing back were accurtate enough. But, the solution that IPOPT is passing back is not even close to good enough.
+  * So, while we are playing with tolerances here for IPOPT as well, this is a different case than was seen before with KNITRO.
+
+    * The only way that playing with the tolerances with IPOPT may fix ``Test 3`` is if poor tolerances are leading to convergence on a **poor** solution

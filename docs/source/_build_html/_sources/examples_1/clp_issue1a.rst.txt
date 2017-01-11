@@ -1,0 +1,21 @@
+A closer look at the "local point of infeasibility":
+====================================================
+**Notes & Conclusions:**
+  * Some of the signals are very jumpy
+  * It is strange that the actual SR matches the optimized one so poorly
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp2/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp2/longv.png
+.. image:: examples/testing_clp2/ax.png
+.. image:: examples/testing_clp2/jx.png
+.. image:: examples/testing_clp2/sa.png
+.. image:: examples/testing_clp2/sr.png
+.. image:: examples/testing_clp2/yaw.png
+.. image:: examples/testing_clp2/yr.png
+.. image:: examples/testing_clp2/latv.png
+.. image:: examples/testing_clp2/pp.png

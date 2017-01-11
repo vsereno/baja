@@ -1,0 +1,11 @@
+Closed-Loop
+===========
+
+This is an example where the loop is being closed. We are iteratively updating the optimization problem with the states that are closest to 0.5 seconds from the current state of the vehicle, then the optimization problem is being resolved.
+
+.. image:: examples/all_goal/anim2_fps2.gif
+
+
+This is the solve time for IPOPT:
+
+.. image:: examples/all_goal/tplot.png

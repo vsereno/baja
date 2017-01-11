@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Closing the Loop &mdash; baja -rc1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="baja -rc1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> baja
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../proj.html">ME 450 Project Requirements Spring 2017</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/software.html">Software and Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes.html">Research Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TODO.html">TO DO</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">baja</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Closing the Loop</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples_1/clp_issue1.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="closing-the-loop">
+<h1>Closing the Loop<a class="headerlink" href="#closing-the-loop" title="Permalink to this headline">¶</a></h1>
+<p>This is an example where the loop is being closed using the 3DOF vehicle model.</p>
+<dl class="docutils">
+<dt>In this simulation:</dt>
+<dd><ul class="first last">
+<li><dl class="first docutils">
+<dt>The <code class="docutils literal"><span class="pre">VehicleModels.jl</span></code> package is being used for the first time in closed loop. To do this:</dt>
+<dd><ol class="first last arabic simple">
+<li>The optimization is solved</li>
+<li>0.5 s of the optimized control signals are sent to <code class="docutils literal"><span class="pre">VehicleModels.jl</span></code></li>
+<li><code class="docutils literal"><span class="pre">VehicleModels.jl</span></code> solves the differential equations using RK4</li>
+<li>The solution is sampled at 100 points for simulation purposes</li>
+<li>The last point in the solution is used to constrain the initial points in the next optimization</li>
+<li>Repeat Steps 1 - 5</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+<dt>In the animation below, it can be seen that the vehicle stops moving. This is the point where:</dt>
+<dd><ul class="first last simple">
+<li>The optimization problem is infeasible and no solution is returned.</li>
+</ul>
+</dd>
+</dl>
+<p>From this <a class="reference external" href="http://www.coin-or.org/Ipopt/documentation/node36.html">link</a>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>Infeasible_Problem_Detected:
+    Console Message: EXIT: Converged to a point of local infeasibility. Problem may be infeasible.
+    The restoration phase converged to a point that is a minimizer for the constraint violation
+    (in the $ \ell_1$-norm), but is not feasible for the original problem. This indicates that
+    the problem may be infeasible (or at least that the algorithm is stuck at a locally infeasible
+    point). The returned point (the minimizer of the constraint violation) might help you to find
+    which constraint is causing the problem. If you believe that the NLP is feasible, it might help
+    to start the optimization from a different point.
+</pre></div>
+</div>
+<ul>
+<li><p class="first">The problem is infeasible because the upper bound that I set on time is 10s</p>
+</li>
+<li><p class="first">It should be able to get to the goal in under about 7s according to previous studies</p>
+<blockquote>
+<div><ul>
+<li><dl class="first docutils">
+<dt>I am not currently sure why we are seeing this (it is a recent development), but it seems like:</dt>
+<dd><ol class="first last arabic simple">
+<li>there must be an issue with the way that I am updating time</li>
+<li>there may be a bug of some kind</li>
+<li>increase in time may also be due to the continued re-solving of the infeasible optimization problem</li>
+</ol>
+</dd>
+</dl>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p><strong>will be looking into these ideas more!</strong></p>
+<img alt="../_images/anim2_fps23.gif" src="../_images/anim2_fps23.gif" />
+<p>This is the solve time for IPOPT:</p>
+<img alt="../_images/tplot4.png" src="../_images/tplot4.png" />
+<div class="section" id="investigation-of-infeasibility-when-closing-the-loop">
+<span id="investigation-of-clp-issue1"></span><h2>Investigation of Infeasibility when Closing the Loop<a class="headerlink" href="#investigation-of-infeasibility-when-closing-the-loop" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1a.html">A closer look at the &#8220;local point of infeasibility&#8221;:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1b.html">Creating Bugs:/</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1b.html#issues-after-updating-packages-not-the-problem">Issues after updating packages? &#8211;&gt; Not the problem!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1b.html#creating-and-fixing-bugs-this-was-the-issue">Creating and Fixing Bugs! &#8212;-&gt; This was the issue!</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1c.html">Closing the Loop after the First Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1d.html">Straight to Goal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1e.html">Single Static Obstacle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1f.html">Cold Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1g.html">Prediction Horizon = 0.52 s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1h.html">Prediction Horizon = 1.0 s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1i.html">Prediction Horizon = 6.83 s</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1j.html">Push Goal Out Further</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1k.html">Expand Region Around Goal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1l.html">Include Obstacle Avoidance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1m.html">Adding Another Obstacle to Scenario where there is still an Issue</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="solving-nlp-using-knitro">
+<h2>Solving NLP using KNITRO<a class="headerlink" href="#solving-nlp-using-knitro" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1n.html">Problem is too large for student version of KNITRO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1o.html">Got KNITRO working for Single Obstacle Avoidance Case</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1p.html">Again Looking At IPOPT for the Single Obstacle Case</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1q.html">Comparing IPOPT and KNITRO for Single Obstacle Case</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1r.html">Testing KNITRO with Trouble Case</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1s.html">Again Looking At IPOPT for Trouble Case</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1t.html">Comparing IPOPT and KNITRO for Trouble Case</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="constraining-the-entire-x0">
+<h2>Constraining the Entire <code class="docutils literal"><span class="pre">X0</span></code><a class="headerlink" href="#constraining-the-entire-x0" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1u.html">Adding Constraints On the ENTIRE X0 &amp; KNITRO ex.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1v.html">Constraints On the ENTIRE X0 with IPOPT ex.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1w.html">Constraints On the ENTIRE X0 | IPOPT vs. KNITRO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1x.html">Got KNITRO working for Single Obstacle Avoidance Case</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1y.html">Again Looking At IPOPT for the Single Obstacle Case</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1z.html">Comparing IPOPT and KNITRO for Single Obstacle Case</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="constraining-the-entire-ax">
+<h2>Constraining the entire <code class="docutils literal"><span class="pre">ax</span></code><a class="headerlink" href="#constraining-the-entire-ax" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1za.html">Introduce Constraint On Last Acceleration DV and a KNITRO ex.</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="investigating-eulers-s-backward-difference">
+<h2>Investigating Eulers&#8217;s Backward Difference<a class="headerlink" href="#investigating-eulers-s-backward-difference" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1zb.html">Modifications that Did not Work</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1zb.html#details-of-investigation">Details of Investigation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="adjusting-tolerances">
+<h2>Adjusting Tolerances<a class="headerlink" href="#adjusting-tolerances" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1zc.html">Adjusting Tolerances in KNITRO</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1zc.html#case-a">Case a)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1zc.html#case-b">Case b)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1zc.html#case-c">Case c)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1zc.html#comparing-all-tests">Comparing All Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1zd.html">Back to The Trouble Senario</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1zd.html#test-1">Test 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1zd.html#test-2">Test 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1zd.html#test-3">Test 3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1zd.html#test-4">Test 4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1zd.html#playing-with-tolerances-in-ipopt">Playing with Tolerances in IPOPT</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="implementing-new-integration-schemes-within-the-optimization">
+<h2>Implementing New Integration Schemes within the Optimization<a class="headerlink" href="#implementing-new-integration-schemes-within-the-optimization" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="clp_issue1ze.html">Implementing Trapezoidal Integration Method</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1ze.html#previously-the-integration-scheme-was-a-euler-backward-method">Previously the integration scheme was a Euler Backward Method:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1ze.html#trapezoidal-integration-method">Trapezoidal Integration Method:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1ze.html#case-a-x-min-0-vehicle-is-not-constrained-to-right">Case a (x_min = 0, vehicle is not constrained to right):</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1ze.html#case-b-x-min-185-m-vehicle-is-constrained-to-right-to-find-local-minima">Case b (<code class="docutils literal"><span class="pre">x_min</span> <span class="pre">=</span> <span class="pre">185</span> <span class="pre">m</span></code>; vehicle is constrained to right &#8211;&gt; to find local minima):</a></li>
+<li class="toctree-l2"><a class="reference internal" href="clp_issue1ze.html#notes-conclusions-questions"><strong>Notes &amp; Conclusions &amp; Questions:</strong></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Huckleberry Febbo, Yingshi Zheng, Nicholas Renbergm, Brian Archer, Matthew Chess, Patrick Ransford, Christopher Klein.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'-rc1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

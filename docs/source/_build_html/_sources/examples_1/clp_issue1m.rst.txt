@@ -1,0 +1,38 @@
+Adding Another Obstacle to Scenario where there is still an Issue
+=================================================================
+**Notes & Conclusions & Questions:**
+
+  * With new formulation the **old** test case where the vehicle is driving through the moving obstacles still fails
+  * In this example, we add an additional obstacle to try to make the vehicle go to the right
+  * The vehicle makes it to the goal without an issue
+  * Also note that "real-time threshold" should be at ``1 s`` not ``0.5 s``
+
+.. image:: examples/testing_clp14/anim2_fps2.gif
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+
+.. image:: examples/testing_clp14/tplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp14/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp14/longv.png
+.. image:: examples/testing_clp14/ax.png
+.. image:: examples/testing_clp14/jx.png
+.. image:: examples/testing_clp14/sa.png
+.. image:: examples/testing_clp14/sr.png
+.. image:: examples/testing_clp14/yaw.png
+.. image:: examples/testing_clp14/yr.png
+.. image:: examples/testing_clp14/latv.png
+.. image:: examples/testing_clp14/pp.png
+
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp14/vt.png
+.. image:: examples/testing_clp14/lt.png

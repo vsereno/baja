@@ -1,0 +1,146 @@
+Cost Function
+=============
+For all of these test case, the following is used:
+
+* the vehicle is being controlled with:
+
+  * steering rate
+  * longitudinal jerk
+* the nonlinear pacejka tire model
+* nonlinear acceleration constraints
+* vertical tire load constraints
+* the 3DoF vehicle model
+* the vehicle is constrained to:
+
+  * get to the goal
+  * avoid obstacles
+  
+For all of these test case, the assumptions are made:
+
+* the obstacle field is known
+
+Nothing in the Cost Function
+----------------------------
+Here is an a test case with moving obstacles where there is nothing in the cost function.
+
+.. toctree::
+   :maxdepth: 2
+
+   nothing_in_cost_function_1
+   nothing_in_cost_function_2
+
+Time in the Cost Function
+-------------------------
+Here is an a test case with moving obstacles where there is time in the cost function.
+
+.. toctree::
+  :maxdepth: 2
+
+  time_in_cost_function_1
+  time_in_cost_function_2
+
+Nothing vs. Time
+----------------
+Now we will compare the results where there is noting in the cost function and where there is time in the cost function.
+
+.. toctree::
+  :maxdepth: 2
+
+  nothing_vs_time
+
+.. _line_2_goal_ex_1:
+
+Line to Goal
+------------
+Here is an a test case were the :ref:`line2goal` term is added.
+
+Where the weight is:
+
+* w_haf = 1.0e-5
+
+
+.. toctree::
+  :maxdepth: 2
+
+  line_2_goal_1
+  line_2_goal_2
+
+Control Effort in Cost Function
+-------------------------------
+Here is an a test case were the :ref:`control_effort` term is added.
+
+Where the weights are:
+
+* w_ce = 1
+* w_sa = 0.1
+* w_sr = 1
+* w_jx = 0.01
+
+.. toctree::
+  :maxdepth: 2
+
+  ce_obj_1
+  ce_obj_2
+
+Nothing vs. Control Effort
+---------------------------
+
+Now we will compare the results where there is nothing in the cost function and where there is a penalty on the control effort.
+
+.. toctree::
+  :maxdepth: 2
+
+  nothing_vs_ce
+
+
+Time vs. Control Effort
+------------------------
+
+Now we will compare the results where there is time in the cost function and where there is a penalty on the control effort.
+
+.. toctree::
+  :maxdepth: 2
+
+  time_vs_ce
+
+Soft Constraints on Vertical Tire Load in Cost Function
+-------------------------------------------------------
+Here is an a test case where the soft constraints on the tire forces are included in the objective function.
+
+Where the weights are:
+
+* Fz_min = 1000
+* Fz_off = 100
+* a_t = Fz_min + 3*Fz_off
+* b_t = Fz_off
+
+.. toctree::
+  :maxdepth: 2
+
+  tf_obj_1
+  tf_obj_2
+
+Time vs. Soft Constraints on Vertical Tire Load
+-----------------------------------------------
+Now we will compare the results where there is time in the cost function and where there is a penalty on the vertical tire forces operating near their minimum.
+
+.. toctree::
+  :maxdepth: 2
+
+  time_vs_tire
+
+
+All Terms For Getting to the Goal
+---------------------------------
+Where the terms are:
+
+* Time
+* Line to Goal
+* Control Effort
+* Soft Constraints on Vertical Tire Load
+
+.. toctree::
+  :maxdepth: 2
+
+  all_goal_obj_1
+  all_goal_obj_2

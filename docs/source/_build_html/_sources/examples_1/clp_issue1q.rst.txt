@@ -1,0 +1,44 @@
+Comparing IPOPT and KNITRO for Single Obstacle Case
+====================================================
+
+**Notes & Conclusions & Questions:**
+
+  * For this case, I had to develop functionality to save and compare more specific information about the optimizations for comparison
+
+    * Objective Function Value
+    * Optimization Time
+    * Optimization status
+
+  * Solutions are basically identical
+  * Solve times are similar
+
+**Comparing the Objective Function Values:**
+
+.. image:: examples/testing_clp16/optplot.png
+
+
+**Comparing the Optimization Speeds:**
+
+.. image:: examples/testing_clp16/tplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp16/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp16/longv.png
+.. image:: examples/testing_clp16/ax.png
+.. image:: examples/testing_clp16/jx.png
+.. image:: examples/testing_clp16/sa.png
+.. image:: examples/testing_clp16/sr.png
+.. image:: examples/testing_clp16/yaw.png
+.. image:: examples/testing_clp16/yr.png
+.. image:: examples/testing_clp16/latv.png
+.. image:: examples/testing_clp16/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp16/vt.png
+.. image:: examples/testing_clp16/lt.png

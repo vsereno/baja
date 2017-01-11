@@ -1,0 +1,86 @@
+Adding Constraints On the ENTIRE X0 & KNITRO ex.
+=================================================
+
+**Notes & Conclusions & Questions:**
+
+  * One Major problem that I noticed is that the results have been very jumpy
+  * In this case, we are adding constraints to make sure that all of the states are continuous between optimizations
+    * This is something that I overlooked because when we actually close the loop, these are new constraints
+
+      * Previously there were no constraints on these variables in the "First Optimization"
+
+  * KNITRO fails after the first optimization
+  * Also notice how the acceleration jumps above what it should be at the end
+
+      * We deal with this later
+
+Previously we only had:
+::
+
+  @NLparameter(mdl, x0     == x0_); @NLconstraint(mdl, x[1]     == x0); @NLconstraint(mdl,x_ref-0.05 <= x[N+1] <= x_ref+0.05);
+  @NLparameter(mdl, y0     == y0_); @NLconstraint(mdl, y[1]     == y0); @NLconstraint(mdl,y_ref-0.05 <= y[N+1] <= y_ref+0.05);
+  @NLparameter(mdl, psi0   == psi0_); @NLconstraint(mdl, psi[1] == psi0);
+  @NLparameter(mdl, v0     == v0_); @NLconstraint(mdl, v[1]     == v0);
+  @NLparameter(mdl, u0     == u0_); @NLconstraint(mdl, u[1]     == u0); @NLconstraint(mdl, u[end]  == u0_)
+
+Now we add:
+::
+
+  # adding additional initial states TODO check speed of constraining all of the final states as well!
+  @NLparameter(mdl, sa0 == sa0_); @NLconstraint(mdl, sa[1] == sa0);
+  @NLparameter(mdl, sr0 == sr0_); @NLconstraint(mdl, sr[1] == sr0);
+  @NLparameter(mdl, ax0 == ax0_); @NLconstraint(mdl, ax[1] == ax0);
+  @NLparameter(mdl, jx0 == jx0_); @NLconstraint(mdl, jx[1] == jx0);
+  @NLparameter(mdl,  r0 == r0_);  @NLconstraint(mdl,  r[1] ==  r0);
+
+Then though the optimization, we update these parameters as:
+::
+
+  # update ALL states
+  setvalue(x0, X[end])
+  setvalue(y0, Y[end])
+  setvalue(psi0, PSI[end])
+  setvalue(v0, V[end])
+  setvalue(u0, U[end])
+  setvalue(sa0, SA[end])
+  setvalue(sr0, SR[end])
+  setvalue(ax0, AX[end])
+  setvalue(jx0, JX[end])
+  setvalue(r0,   R[end])
+
+
+.. image:: examples/testing_clp18_KNITRO/anim2_fps2.gif
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+
+**Optimization times:**
+
+.. image:: examples/testing_clp18_KNITRO/tplot.png
+
+
+**Objective Function Values:**
+
+.. image:: examples/testing_clp18_KNITRO/optplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp18_KNITRO/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp18_KNITRO/longv.png
+.. image:: examples/testing_clp18_KNITRO/ax.png
+.. image:: examples/testing_clp18_KNITRO/jx.png
+.. image:: examples/testing_clp18_KNITRO/sa.png
+.. image:: examples/testing_clp18_KNITRO/sr.png
+.. image:: examples/testing_clp18_KNITRO/yaw.png
+.. image:: examples/testing_clp18_KNITRO/yr.png
+.. image:: examples/testing_clp18_KNITRO/latv.png
+.. image:: examples/testing_clp18_KNITRO/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp18_KNITRO/vt.png
+.. image:: examples/testing_clp18_KNITRO/lt.png

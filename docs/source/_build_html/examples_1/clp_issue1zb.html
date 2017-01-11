@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Modifications that Did not Work &mdash; baja -rc1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="baja -rc1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> baja
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../proj.html">ME 450 Project Requirements Spring 2017</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/software.html">Software and Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes.html">Research Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TODO.html">TO DO</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">baja</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Modifications that Did not Work</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples_1/clp_issue1zb.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="modifications-that-did-not-work">
+<h1>Modifications that Did not Work<a class="headerlink" href="#modifications-that-did-not-work" title="Permalink to this headline">¶</a></h1>
+<ul>
+<li><p class="first">The following investigation systematically  played with many different aspects of the formulation</p>
+<ul>
+<li><p class="first">A major modification was trying to more closely represent Euler&#8217;s Backward Difference withing the Optimization</p>
+<ul>
+<li><p class="first">Previously the last two equations were:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>  <span class="o">-</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>     <span class="o">-</span> <span class="n">sr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">dt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span>
+<span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>  <span class="o">-</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>     <span class="o">-</span> <span class="n">jx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">dt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">I modified them to:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>  <span class="o">-</span> <span class="n">sa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>     <span class="o">-</span> <span class="n">sr</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">dt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span>
+<span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>  <span class="o">-</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>     <span class="o">-</span> <span class="n">jx</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">dt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">To do this I had to add a new DV for both JX and SR as the <code class="docutils literal"><span class="pre">N+1</span></code> step</p>
+</li>
+<li><p class="first">It turned out this did not fix the issue</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">Form all of these tests and investigations we learn:</p>
+<ul class="simple">
+<li>It is better to leave the SR and JX DVs one step smaller than the rest of the DVs<ul>
+<li>At least for the current formulation</li>
+</ul>
+</li>
+<li>That differences between the VehicleModels.jl model and the optimization model may be leading into the infeasibility issues that we are steering<ul>
+<li>The current hypothesis is that there is a bug</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="details-of-investigation">
+<h2>Details of Investigation<a class="headerlink" href="#details-of-investigation" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="21.html">New DVs for SR and JX and Test | 21</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="21.html#knitro-21">KNITRO 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="21.html#ipopt-21">IPOPT 21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="21.html#ipopt-vs-knitro-21">IPOPT vs. KNITRO 21</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="22.html">Same as 21, Except and Easier Case | 22</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="22.html#knitro-22">KNITRO 22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="22.html#ipopt-22">IPOPT 22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="22.html#ipopt-vs-knitro-22">IPOPT vs. KNITRO 22</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="23.html">Extend the Execution Horizon to Check New Formulation | 23</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="23.html#knitro-23">KNITRO 23</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="24.html">Removing Constraints | 24</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="24.html#knitro-24">KNITRO 24</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="remove_constraints1.html">Constrained vs. Unconstrained</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="remove_constraints1.html#compare-23-and-24">Compare 23 and 24</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="25.html">Eliminate new DVs for SR and JX | 25</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="25.html#knitro-25">KNITRO 25</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="26.html">Same as 25 except, we add back the constraints | 26</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="26.html#knitro-26">KNITRO 26</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="27.html">Same as 26, except we decrease the Execution Horizon | 27</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="27.html#knitro-27">KNITRO 27</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Huckleberry Febbo, Yingshi Zheng, Nicholas Renbergm, Brian Archer, Matthew Chess, Patrick Ransford, Christopher Klein.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'-rc1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

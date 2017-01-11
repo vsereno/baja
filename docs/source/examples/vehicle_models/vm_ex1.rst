@@ -1,0 +1,42 @@
+Three Degree of Freedom Model
+==============================
+
+In this example only the control signals (SR and Jx) are used to solve the differential equations using Euler and RK4 techniques and the results are compared to the optimized signals.
+
+
+**Notes & Conclusions:**
+  * The differences between the optimized and the actual (using the differential equation solvers) are acceptable.
+  * The animation simply demonstrates that the vehicles are avoiding obstacles:
+
+      * The time scale is not correct, because there are different numbers of frames
+      * It does not show the RK4 solution:
+
+          * It is almost exactly the same as the Euler solution
+
+
+.. image:: diff_eq1/position_fps2.gif
+
+
+**Taking a look at the states:**
+
+
+.. image:: diff_eq1/main.png
+
+**A closer look at the states and controls:**
+
+
+.. image:: diff_eq1/longv.png
+.. image:: diff_eq1/ax.png
+.. image:: diff_eq1/jx.png
+.. image:: diff_eq1/sa.png
+.. image:: diff_eq1/sr.png
+.. image:: diff_eq1/yaw.png
+.. image:: diff_eq1/yr.png
+.. image:: diff_eq1/latv.png
+.. image:: diff_eq1/pp.png
+
+
+**The tire forces are:**
+
+.. image:: diff_eq1/vt.png
+.. image:: diff_eq1/lt.png

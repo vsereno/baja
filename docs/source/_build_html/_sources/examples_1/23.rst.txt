@@ -1,0 +1,32 @@
+Extend the Execution Horizon to Check New Formulation | 23
+===========================================================
+* in this case we extend the execution horizon to make sure that the vehicle models package is still representing the slightly modified dynamics
+* turns out it does a terrible job now.
+
+KNITRO 23
+---------
+
+.. image:: examples/testing_clp23_KNITRO/anim2_fps2.gif
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp23_KNITRO/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp23_KNITRO/longv.png
+.. image:: examples/testing_clp23_KNITRO/ax.png
+.. image:: examples/testing_clp23_KNITRO/jx.png
+.. image:: examples/testing_clp23_KNITRO/sa.png
+.. image:: examples/testing_clp23_KNITRO/sr.png
+.. image:: examples/testing_clp23_KNITRO/yaw.png
+.. image:: examples/testing_clp23_KNITRO/yr.png
+.. image:: examples/testing_clp23_KNITRO/latv.png
+.. image:: examples/testing_clp23_KNITRO/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp23_KNITRO/vt.png
+.. image:: examples/testing_clp23_KNITRO/lt.png

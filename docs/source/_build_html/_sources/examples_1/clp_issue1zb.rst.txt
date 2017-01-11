@@ -1,0 +1,46 @@
+Modifications that Did not Work
+================================
+
+* The following investigation systematically  played with many different aspects of the formulation
+
+  * A major modification was trying to more closely represent Euler's Backward Difference withing the Optimization
+
+    * Previously the last two equations were:
+      ::
+
+        @NLconstraint(mdl, 0 == sa[i+1]  - sa[i]     - sr[i]*dt[i] )
+        @NLconstraint(mdl, 0 == ax[i+1]  - ax[i]     - jx[i]*dt[i] )
+
+
+    * I modified them to:
+      ::
+      
+        @NLconstraint(mdl, 0 == sa[i+1]  - sa[i]     - sr[i+1]*dt[i] )
+        @NLconstraint(mdl, 0 == ax[i+1]  - ax[i]     - jx[i+1]*dt[i] )
+
+    * To do this I had to add a new DV for both JX and SR as the ``N+1`` step
+    * It turned out this did not fix the issue
+
+* Form all of these tests and investigations we learn:
+
+  * It is better to leave the SR and JX DVs one step smaller than the rest of the DVs
+
+    * At least for the current formulation
+
+  * That differences between the VehicleModels.jl model and the optimization model may be leading into the infeasibility issues that we are steering
+
+    * The current hypothesis is that there is a bug
+
+Details of Investigation
+------------------------
+.. toctree::
+   :maxdepth: 2
+
+   21
+   22
+   23
+   24
+   remove_constraints1
+   25
+   26
+   27

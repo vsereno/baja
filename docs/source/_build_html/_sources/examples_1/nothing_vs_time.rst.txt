@@ -1,0 +1,29 @@
+First Optimization
+==================
+
+In this example only the first optimization is shown, that is, the loop is **not** being closed.
+
+.. image:: examples/time_vs_none/position_fps2.gif
+
+It can be seen that when time is included in the objective function the vehicle arrives at the goal sooner and it pushed towards its operational limits.
+
+
+**Taking a look at the states:**
+
+.. image:: examples/time_vs_none/main.png
+
+**The tire forces are:**
+
+.. image:: examples/time_vs_none/vt.png
+.. image:: examples/time_vs_none/lt.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/time_vs_none/longv.png
+.. image:: examples/time_vs_none/ax.png
+.. image:: examples/time_vs_none/jx.png
+.. image:: examples/time_vs_none/sa.png
+.. image:: examples/time_vs_none/sr.png
+.. image:: examples/time_vs_none/yaw.png
+.. image:: examples/time_vs_none/yr.png
+.. image:: examples/time_vs_none/latv.png

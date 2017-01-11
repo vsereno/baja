@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Implementing Trapezoidal Integration Method &mdash; baja -rc1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="baja -rc1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> baja
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../proj.html">ME 450 Project Requirements Spring 2017</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/software.html">Software and Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes.html">Research Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TODO.html">TO DO</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">baja</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Implementing Trapezoidal Integration Method</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples_1/clp_issue1ze.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="implementing-trapezoidal-integration-method">
+<h1>Implementing Trapezoidal Integration Method<a class="headerlink" href="#implementing-trapezoidal-integration-method" title="Permalink to this headline">¶</a></h1>
+<p>This page will look into the results of the code that was developed to integrated to ODE&#8217;s using the trapezoidal method (previously we used Euler&#8217;s Method). In these results, I demonstrate that using the trapezoidal rule makes the vehicle get to the goal (using either KNITRO or IPOPT), when previously (for the same problem using Euler&#8217;s method the vehicle fails to get to the goal (using both KNITRO and IPOPT).</p>
+<div class="section" id="previously-the-integration-scheme-was-a-euler-backward-method">
+<h2>Previously the integration scheme was a Euler Backward Method:<a class="headerlink" href="#previously-the-integration-scheme-was-a-euler-backward-method" title="Permalink to this headline">¶</a></h2>
+<div class="math">
+\[0 = \mathbf{\xi}(t_i+1)-\mathbf{\xi}(t) - f_d(t_(i-1)*dt_i\]</div>
+<p>which looks something like this in code (in one example):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">psi_con</span><span class="p">[</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="p">],</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">psi</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">psi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">-</span> <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">dt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="trapezoidal-integration-method">
+<h2>Trapezoidal Integration Method:<a class="headerlink" href="#trapezoidal-integration-method" title="Permalink to this headline">¶</a></h2>
+<div class="math">
+\[0 = \mathbf{\xi}(t_i+1)-\mathbf{\xi}(t) - (f_d(i) + f_d(i+1))*\frac{dt_i}{2}\]</div>
+<p>which looks something like this in code:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">psi_con</span><span class="p">[</span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="p">],</span> <span class="mi">0</span> <span class="o">==</span> <span class="n">psi</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">psi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="o">-</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span>  <span class="n">r</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">*</span><span class="n">dt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>  <span class="p">)</span>
+</pre></div>
+</div>
+<p>In this set of results, there are 4 more examples; we will compare two solvers (KNITRO and IPOPT) each with both Euler&#8217;s Backward Method and the Trapezoidal Method. In the remaining 4 cases, the difference now is that we will constrain the vehicle to the right side with <code class="docutils literal"><span class="pre">x_min=185</span> <span class="pre">m</span></code>.</p>
+</div>
+<div class="section" id="case-a-x-min-0-vehicle-is-not-constrained-to-right">
+<h2>Case a (x_min = 0, vehicle is not constrained to right):<a class="headerlink" href="#case-a-x-min-0-vehicle-is-not-constrained-to-right" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>The high level results are shown here:</dt>
+<dd><ul class="first last">
+<li><p class="first">IPOPT</p>
+<blockquote>
+<div><ul class="simple">
+<li>Euler&#8217;s Method: FAIL</li>
+<li>Trapezoidal Method: PASS&#8211; final objective function value = 23.3</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">KNITRO</p>
+<blockquote>
+<div><ul class="simple">
+<li>Euler&#8217;s Method: FAIL</li>
+<li>Trapezoidal Method: PASS &#8211; final objective function value = 24.4</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</dd>
+</dl>
+<p>The detailed results can be seen by following the links below:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="75_a.html">IPOPT with Euler&#8217;s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="75_b.html">IPOPT with Trapezoidal Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="75_c.html">KNITRO with Euler&#8217;s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="75_d.html">KNITRO with trapezoidal Method</a></li>
+</ul>
+</div>
+<p>So, by using the trapezoidal rule, we are able to make the vehicle get (all of the way) to the goal.</p>
+<ul class="simple">
+<li>But, in this case, we are also converging on a local minima; so next we try and constrain the vehicle to the right.</li>
+</ul>
+</div>
+<div class="section" id="case-b-x-min-185-m-vehicle-is-constrained-to-right-to-find-local-minima">
+<h2>Case b (<code class="docutils literal"><span class="pre">x_min</span> <span class="pre">=</span> <span class="pre">185</span> <span class="pre">m</span></code>; vehicle is constrained to right &#8211;&gt; to find local minima):<a class="headerlink" href="#case-b-x-min-185-m-vehicle-is-constrained-to-right-to-find-local-minima" title="Permalink to this headline">¶</a></h2>
+<p>The high level results are shown here:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">IPOPT</p>
+<ul>
+<li><p class="first">Euler&#8217;s Method: PASS &#8211; final objective function value = 17.91</p>
+<blockquote>
+<div><ul>
+<li><p class="first">NOTE: this case was fixed by:</p>
+<blockquote>
+<div><ul class="simple">
+<li>decreasing tol to <code class="docutils literal"><span class="pre">tol=</span> <span class="pre">1e-3</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Trapezoidal Method: PASS &#8211; final objective function value = 17.81</p>
+<blockquote>
+<div><ul class="simple">
+<li>NOTE: this case was fixed by:<ul>
+<li>decreasing <code class="docutils literal"><span class="pre">tol</span></code> to <code class="docutils literal"><span class="pre">tol=</span> <span class="pre">1e-2</span></code></li>
+<li>decreasing <code class="docutils literal"><span class="pre">dt_min</span></code> to <code class="docutils literal"><span class="pre">dt_min</span> <span class="pre">=</span> <span class="pre">0.000001</span></code></li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</li>
+<li><p class="first">KNITRO</p>
+<ul class="simple">
+<li>Euler&#8217;s Method: PASS &#8211; final objective function value = 18.17</li>
+<li>Trapezoidal Method: PASS &#8211; final objective function value = 18.17</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<p>The detailed results can be seen by following the links below:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="76_a.html">IPOPT with Euler&#8217;s Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="76_b.html">IPOPT with Trapezoidal Method</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="76_b.html#case-1-pass-tol-1e-2-and-dt-min-0-000001">Case 1: (PASS) <code class="docutils literal"><span class="pre">tol</span> <span class="pre">=</span> <span class="pre">1e-2</span></code> and <code class="docutils literal"><span class="pre">dt_min</span> <span class="pre">=</span> <span class="pre">0.000001</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="76_b.html#case-2-fail-tol-1e-3-and-dt-min-0-000001-dt-min-0-00001">Case 2: (FAIL) <code class="docutils literal"><span class="pre">tol</span> <span class="pre">=</span> <span class="pre">1e-3</span></code> and <code class="docutils literal"><span class="pre">dt_min</span> <span class="pre">=</span> <span class="pre">0.000001</span></code> &amp; <code class="docutils literal"><span class="pre">dt_min=0.00001</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="76_c.html">KNITRO with Euler Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="76_d.html">KNITRO with Trapezoidal Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="76_e.html">Comparison of Working Cases</a></li>
+</ul>
+</div>
+<p>Total Solve Times (minus) Initial Solve Times:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Euler with IPOPT = 7.5 s</li>
+<li>Trapezoidal with IPOPT = 18.3 s</li>
+<li>Euler KNITRO = 4.4 s</li>
+<li>Trapezoidal with KNITRO = 12.6 s</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="notes-conclusions-questions">
+<h2><strong>Notes &amp; Conclusions &amp; Questions:</strong><a class="headerlink" href="#notes-conclusions-questions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>So, basically, after adjusting the tolerances, all of the tests for <code class="docutils literal"><span class="pre">Case</span> <span class="pre">b</span></code> pass!</li>
+<li>Also, initially, both IPOPT tests for Case b failed and after further investigation into the solutions that IPOPT was considering <code class="docutils literal"><span class="pre">infeasible</span></code>, we where able to relax the <code class="docutils literal"><span class="pre">tol</span></code>, the optimality error.<ul>
+<li>That is the error for the first-order optimality condition for the barrier problem</li>
+</ul>
+</li>
+<li>Using Euler&#8217;s Method combined with KNITRO provides the fastest solution time while computing a reasonable solution</li>
+<li>Implementing the hp-pseudospectral method may actually be slower for the same number of points.</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Huckleberry Febbo, Yingshi Zheng, Nicholas Renbergm, Brian Archer, Matthew Chess, Patrick Ransford, Christopher Klein.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'-rc1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

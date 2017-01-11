@@ -1,0 +1,80 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['gantt']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function daysToMilliseconds(days) {
+      return days * 24 * 60 * 60 * 1000;
+    }
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Task ID');
+      data.addColumn('string', 'Task Name');
+      data.addColumn('string', 'Resource');
+      data.addColumn('date', 'Start Date');
+      data.addColumn('date', 'End Date');
+      data.addColumn('number', 'Duration');
+      data.addColumn('number', 'Percent Complete');
+      data.addColumn('string', 'Dependencies');
+
+      data.addRows([
+      ['julia1', 'Implement OCP using julia', 'ocp',
+      new Date(2016, 07, 1), new Date(2016, 08, 5), null, 100,  null],
+      ['test_ocp', 'VEXP of OL OCP in KE with MO', 'Vtest',
+      new Date(2016, 08, 1), new Date(2016, 9, 5), null, 100,  'julia1'],
+      ['3DOF', 'CL with 3 DOF VM', 'cl',
+      new Date(2016, 9, 05), new Date(2016, 9, 17), null, 100,'julia1'],
+      ['test_3dof', 'VEXP of CL OCP in KE with MO', 'Vtest',
+      new Date(2016, 9, 17), new Date(2016, 10, 01), null, 40,'julia1,3DOF'],
+      ['14DOF', 'CL with 14 DOF VM', 'cl',
+      new Date(2016,10, 01), new Date(2016, 11, 15), null,  02, '3DOF,julia1'],
+      ['lidar1', 'Build 3D LiDAR Model', 'lidar',
+      new Date(2016, 8, 15), new Date(2016, 9, 07), null, 100, null],
+      ['lidar2', 'Incorperate LiDAR model into julia', 'lidar',
+      new Date(2016, 9, 07), new Date(2016, 11, 15), null, 5, 'lidar1,julia1'],
+      ['lidar3', 'Identify SO Constraints', 'lidar',
+      new Date(2016, 10, 01), new Date(2017, 2, 15), null, 0, 'lidar1,lidar2,julia1'],
+      ['test_ocp2', 'VEXP of OCP in UE with SO', 'Vtest',
+      new Date(2017, 0, 1), new Date(2017, 1, 15), null, 0,  'julia1,3DOF,14DOF,lidar1,lidar2,lidar3'],
+      ['lidar4', 'Predict MO Paths', 'lidar',
+      new Date(2017, 1, 15), new Date(2017, 2, 15), null, 0, 'lidar1,lidar2,lidar3,julia1'],
+      ['baja1', 'Select LiDAR Device for BAJA', 'baja',
+      new Date(2016, 10, 1), new Date(2016, 10, 25), null, 0, null],
+      ['baja2', 'Purchase LiDAR Device for BAJA', 'baja',
+      new Date(2016, 10, 25), new Date(2017, 0, 07), null, 0, 'baja1'],
+      ['baja3', 'Install LiDAR Device for BAJA', 'baja',
+      new Date(2017, 0, 07), new Date(2017, 1, 07), null, 0, 'baja1,baja2'],
+      ['baja5', 'Ptest LiDAR Device on BAJA', 'Ptest',
+      new Date(2017, 1, 07), new Date(2017, 3, 07), null, 0, 'baja1,baja2,baja3'],
+      ['baja4', 'Prepare BAJA for EXP (misc.)', 'baja',
+       new Date(2016, 11, 07), new Date(2017, 8, 07), null, 0, null],
+      ['test_ocp3', 'VEXP of CL OCP in UE with MO', 'Vtest',
+      new Date(2017, 2, 15), new Date(2017, 4, 15), null, 0, 'lidar3,14DOF,julia1'],
+      ['paper1', 'write a paper', 'paper',
+      new Date(2017, 3, 15), new Date(2017, 7, 15), null, 0, 'test_ocp3'],
+      ['doc', 'Website to Document Code and Research', 'doc',
+      new Date(2016, 9, 1), new Date(2017, 7, 15), null, 0, null]
+      ]);
+
+
+      var options = {
+        height: 1000,
+        gantt: {
+          trackHeight: 30
+        }
+      };
+
+      var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+<body>
+  <div id="chart_div"></div>
+</body>
+</html>

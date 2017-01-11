@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Cost Function &mdash; baja -rc1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="baja -rc1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> baja
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../proj.html">ME 450 Project Requirements Spring 2017</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/software.html">Software and Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes.html">Research Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TODO.html">TO DO</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">baja</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Cost Function</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples_1/costfunction_ex.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cost-function">
+<h1>Cost Function<a class="headerlink" href="#cost-function" title="Permalink to this headline">¶</a></h1>
+<p>For all of these test case, the following is used:</p>
+<ul class="simple">
+<li>the vehicle is being controlled with:<ul>
+<li>steering rate</li>
+<li>longitudinal jerk</li>
+</ul>
+</li>
+<li>the nonlinear pacejka tire model</li>
+<li>nonlinear acceleration constraints</li>
+<li>vertical tire load constraints</li>
+<li>the 3DoF vehicle model</li>
+<li>the vehicle is constrained to:<ul>
+<li>get to the goal</li>
+<li>avoid obstacles</li>
+</ul>
+</li>
+</ul>
+<p>For all of these test case, the assumptions are made:</p>
+<ul class="simple">
+<li>the obstacle field is known</li>
+</ul>
+<div class="section" id="nothing-in-the-cost-function">
+<h2>Nothing in the Cost Function<a class="headerlink" href="#nothing-in-the-cost-function" title="Permalink to this headline">¶</a></h2>
+<p>Here is an a test case with moving obstacles where there is nothing in the cost function.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nothing_in_cost_function_1.html">First Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="nothing_in_cost_function_2.html">Closed-Loop</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="time-in-the-cost-function">
+<h2>Time in the Cost Function<a class="headerlink" href="#time-in-the-cost-function" title="Permalink to this headline">¶</a></h2>
+<p>Here is an a test case with moving obstacles where there is time in the cost function.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="time_in_cost_function_1.html">First Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="time_in_cost_function_2.html">Closed-Loop</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="nothing-vs-time">
+<h2>Nothing vs. Time<a class="headerlink" href="#nothing-vs-time" title="Permalink to this headline">¶</a></h2>
+<p>Now we will compare the results where there is noting in the cost function and where there is time in the cost function.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nothing_vs_time.html">First Optimization</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="line-to-goal">
+<span id="line-2-goal-ex-1"></span><h2>Line to Goal<a class="headerlink" href="#line-to-goal" title="Permalink to this headline">¶</a></h2>
+<p>Here is an a test case were the <span class="xref std std-ref">line2goal</span> term is added.</p>
+<p>Where the weight is:</p>
+<ul class="simple">
+<li>w_haf = 1.0e-5</li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="line_2_goal_1.html">First Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="line_2_goal_2.html">Closed-Loop</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="control-effort-in-cost-function">
+<h2>Control Effort in Cost Function<a class="headerlink" href="#control-effort-in-cost-function" title="Permalink to this headline">¶</a></h2>
+<p>Here is an a test case were the <span class="xref std std-ref">control_effort</span> term is added.</p>
+<p>Where the weights are:</p>
+<ul class="simple">
+<li>w_ce = 1</li>
+<li>w_sa = 0.1</li>
+<li>w_sr = 1</li>
+<li>w_jx = 0.01</li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ce_obj_1.html">First Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ce_obj_2.html">Closed-Loop</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="nothing-vs-control-effort">
+<h2>Nothing vs. Control Effort<a class="headerlink" href="#nothing-vs-control-effort" title="Permalink to this headline">¶</a></h2>
+<p>Now we will compare the results where there is nothing in the cost function and where there is a penalty on the control effort.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="nothing_vs_ce.html">First Optimization</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="time-vs-control-effort">
+<h2>Time vs. Control Effort<a class="headerlink" href="#time-vs-control-effort" title="Permalink to this headline">¶</a></h2>
+<p>Now we will compare the results where there is time in the cost function and where there is a penalty on the control effort.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="time_vs_ce.html">First Optimization</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="soft-constraints-on-vertical-tire-load-in-cost-function">
+<h2>Soft Constraints on Vertical Tire Load in Cost Function<a class="headerlink" href="#soft-constraints-on-vertical-tire-load-in-cost-function" title="Permalink to this headline">¶</a></h2>
+<p>Here is an a test case where the soft constraints on the tire forces are included in the objective function.</p>
+<p>Where the weights are:</p>
+<ul class="simple">
+<li>Fz_min = 1000</li>
+<li>Fz_off = 100</li>
+<li>a_t = Fz_min + 3*Fz_off</li>
+<li>b_t = Fz_off</li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tf_obj_1.html">First Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tf_obj_2.html">Closed-Loop</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="time-vs-soft-constraints-on-vertical-tire-load">
+<h2>Time vs. Soft Constraints on Vertical Tire Load<a class="headerlink" href="#time-vs-soft-constraints-on-vertical-tire-load" title="Permalink to this headline">¶</a></h2>
+<p>Now we will compare the results where there is time in the cost function and where there is a penalty on the vertical tire forces operating near their minimum.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="time_vs_tire.html">First Optimization</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="all-terms-for-getting-to-the-goal">
+<h2>All Terms For Getting to the Goal<a class="headerlink" href="#all-terms-for-getting-to-the-goal" title="Permalink to this headline">¶</a></h2>
+<p>Where the terms are:</p>
+<ul class="simple">
+<li>Time</li>
+<li>Line to Goal</li>
+<li>Control Effort</li>
+<li>Soft Constraints on Vertical Tire Load</li>
+</ul>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="all_goal_obj_1.html">First Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="all_goal_obj_2.html">Closed-Loop</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Huckleberry Febbo, Yingshi Zheng, Nicholas Renbergm, Brian Archer, Matthew Chess, Patrick Ransford, Christopher Klein.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'-rc1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

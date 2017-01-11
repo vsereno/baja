@@ -1,0 +1,39 @@
+Constraints On the ENTIRE X0 | IPOPT vs. KNITRO
+===============================================
+
+**Notes & Conclusions & Questions:**
+
+  * Both fail
+  * I also did this entire comparison with the single static obstacle case with the same sort of results
+  * Then I played with Euler's Forward Differentiation Method (in the optimization) with no luck
+
+**Comparing Objective Function Values:**
+
+.. image:: examples/testing_clp18/optplot.png
+
+
+**Comparing the Optimization Speeds:**
+
+.. image:: examples/testing_clp18/tplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp18/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp18/longv.png
+.. image:: examples/testing_clp18/ax.png
+.. image:: examples/testing_clp18/jx.png
+.. image:: examples/testing_clp18/sa.png
+.. image:: examples/testing_clp18/sr.png
+.. image:: examples/testing_clp18/yaw.png
+.. image:: examples/testing_clp18/yr.png
+.. image:: examples/testing_clp18/latv.png
+.. image:: examples/testing_clp18/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp18/vt.png
+.. image:: examples/testing_clp18/lt.png

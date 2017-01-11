@@ -1,0 +1,37 @@
+Straight to Goal
+================
+**Notes & Conclusions:**
+
+  * In this set of results, the animations where updated
+  * Everything appears to be in working order
+
+.. image:: examples/testing_clp5/anim2_fps2.gif
+
+For a closer look at the end (last optimization) of the static plots, look below.
+
+This is the solve time for IPOPT:
+
+.. image:: examples/testing_clp5/tplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp5/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp5/longv.png
+.. image:: examples/testing_clp5/ax.png
+.. image:: examples/testing_clp5/jx.png
+.. image:: examples/testing_clp5/sa.png
+.. image:: examples/testing_clp5/sr.png
+.. image:: examples/testing_clp5/yaw.png
+.. image:: examples/testing_clp5/yr.png
+.. image:: examples/testing_clp5/latv.png
+.. image:: examples/testing_clp5/pp.png
+
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp5/vt.png
+.. image:: examples/testing_clp5/lt.png

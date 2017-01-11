@@ -1,0 +1,115 @@
+Implementing Trapezoidal Integration Method
+===========================================
+This page will look into the results of the code that was developed to integrated to ODE's using the trapezoidal method (previously we used Euler's Method). In these results, I demonstrate that using the trapezoidal rule makes the vehicle get to the goal (using either KNITRO or IPOPT), when previously (for the same problem using Euler's method the vehicle fails to get to the goal (using both KNITRO and IPOPT).
+
+
+
+Previously the integration scheme was a Euler Backward Method:
+--------------------------------------------------------------
+.. math:: 0 = \mathbf{\xi}(t_i+1)-\mathbf{\xi}(t) - f_d(t_(i-1)*dt_i
+
+which looks something like this in code (in one example):
+::
+
+  @NLconstraint(mdl, psi_con[i=1:N], 0 == psi[i+1] - psi[i]  - r[i+1]*dt[i]  )
+
+
+Trapezoidal Integration Method:
+-------------------------------
+.. math:: 0 = \mathbf{\xi}(t_i+1)-\mathbf{\xi}(t) - (f_d(i) + f_d(i+1))*\frac{dt_i}{2}
+
+which looks something like this in code:
+::
+
+  @NLconstraint(mdl, psi_con[i=1:N], 0 == psi[i+1] - psi[i]  - (r[i+1] +  r[i])*dt[i]/2  )
+
+
+In this set of results, there are 4 more examples; we will compare two solvers (KNITRO and IPOPT) each with both Euler's Backward Method and the Trapezoidal Method. In the remaining 4 cases, the difference now is that we will constrain the vehicle to the right side with ``x_min=185 m``.
+
+
+Case a (x_min = 0, vehicle is not constrained to right):
+--------------------------------------------------------
+
+The high level results are shown here:
+  * IPOPT
+
+      * Euler's Method: FAIL
+      * Trapezoidal Method: PASS-- final objective function value = 23.3
+
+  * KNITRO
+
+      * Euler's Method: FAIL
+      * Trapezoidal Method: PASS -- final objective function value = 24.4
+
+The detailed results can be seen by following the links below:
+
+.. toctree::
+  :maxdepth: 2
+
+  75_a
+  75_b
+  75_c
+  75_d
+
+So, by using the trapezoidal rule, we are able to make the vehicle get (all of the way) to the goal.
+
+*  But, in this case, we are also converging on a local minima; so next we try and constrain the vehicle to the right.
+
+Case b (``x_min = 185 m``; vehicle is constrained to right --> to find local minima):
+-------------------------------------------------------------------------------------
+
+The high level results are shown here:
+
+  * IPOPT
+
+    * Euler's Method: PASS -- final objective function value = 17.91
+
+        * NOTE: this case was fixed by:
+
+            * decreasing tol to ``tol= 1e-3``
+
+    * Trapezoidal Method: PASS -- final objective function value = 17.81
+
+        * NOTE: this case was fixed by:
+
+          * decreasing ``tol`` to ``tol= 1e-2``
+          * decreasing ``dt_min`` to ``dt_min = 0.000001``
+
+
+  * KNITRO
+
+    * Euler's Method: PASS -- final objective function value = 18.17
+    * Trapezoidal Method: PASS -- final objective function value = 18.17
+
+
+The detailed results can be seen by following the links below:
+
+.. toctree::
+  :maxdepth: 2
+
+  76_a
+  76_b
+  76_c
+  76_d
+  76_e
+
+
+Total Solve Times (minus) Initial Solve Times:
+
+  * Euler with IPOPT = 7.5 s
+  * Trapezoidal with IPOPT = 18.3 s
+  * Euler KNITRO = 4.4 s
+  * Trapezoidal with KNITRO = 12.6 s
+
+
+**Notes & Conclusions & Questions:**
+------------------------------------
+
+* So, basically, after adjusting the tolerances, all of the tests for ``Case b`` pass!
+* Also, initially, both IPOPT tests for Case b failed and after further investigation into the solutions that IPOPT was considering ``infeasible``, we where able to relax the ``tol``, the optimality error.
+
+  * That is the error for the first-order optimality condition for the barrier problem
+
+* Using Euler's Method combined with KNITRO provides the fastest solution time while computing a reasonable solution
+
+* Implementing the hp-pseudospectral method may actually be slower for the same number of points.

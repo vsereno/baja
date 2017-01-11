@@ -1,0 +1,28 @@
+First Optimization
+==================
+
+In this example only the first optimization is shown, that is, the loop is **not** being closed.
+
+.. image:: examples/line_2_goal_00005/position_fps2.gif
+
+**Taking a look at the states:**
+
+.. image:: examples/line_2_goal_00005/main.png
+
+An :ref:`current_issues` has been open for the acceleration.
+
+**The tire forces are:**
+
+.. image:: examples/line_2_goal_00005/vt.png
+.. image:: examples/line_2_goal_00005/lt.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/line_2_goal_00005/longv.png
+.. image:: examples/line_2_goal_00005/ax.png
+.. image:: examples/line_2_goal_00005/jx.png
+.. image:: examples/line_2_goal_00005/sa.png
+.. image:: examples/line_2_goal_00005/sr.png
+.. image:: examples/line_2_goal_00005/yaw.png
+.. image:: examples/line_2_goal_00005/yr.png
+.. image:: examples/line_2_goal_00005/latv.png

@@ -1,0 +1,37 @@
+Comparing IPOPT and KNITRO for Trouble Case
+===========================================
+
+**Notes & Conclusions & Questions:**
+
+  * Solutions are similar
+  * Solve times are similar, but IPOPT does a bit better
+
+**Comparing the Objective Function Values:**
+
+.. image:: examples/testing_clp17/optplot.png
+
+**Comparing the Optimization Speeds:**
+
+.. image:: examples/testing_clp17/tplot.png
+
+
+**Taking a look at the states:**
+
+.. image:: examples/testing_clp17/main.png
+
+**A closer look at the states and controls:**
+
+.. image:: examples/testing_clp17/longv.png
+.. image:: examples/testing_clp17/ax.png
+.. image:: examples/testing_clp17/jx.png
+.. image:: examples/testing_clp17/sa.png
+.. image:: examples/testing_clp17/sr.png
+.. image:: examples/testing_clp17/yaw.png
+.. image:: examples/testing_clp17/yr.png
+.. image:: examples/testing_clp17/latv.png
+.. image:: examples/testing_clp17/pp.png
+
+**The tire forces are:**
+
+.. image:: examples/testing_clp17/vt.png
+.. image:: examples/testing_clp17/lt.png

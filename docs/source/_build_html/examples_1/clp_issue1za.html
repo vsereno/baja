@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Introduce Constraint On Last Acceleration DV and a KNITRO ex. &mdash; baja -rc1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="baja -rc1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> baja
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../proj.html">ME 450 Project Requirements Spring 2017</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/software.html">Software and Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes.html">Research Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TODO.html">TO DO</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">baja</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Introduce Constraint On Last Acceleration DV and a KNITRO ex.</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples_1/clp_issue1za.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="introduce-constraint-on-last-acceleration-dv-and-a-knitro-ex">
+<h1>Introduce Constraint On Last Acceleration DV and a KNITRO ex.<a class="headerlink" href="#introduce-constraint-on-last-acceleration-dv-and-a-knitro-ex" title="Permalink to this headline">¶</a></h1>
+<p><strong>Notes &amp; Conclusions &amp; Questions:</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li>Previously, I only constrained steps <code class="docutils literal"><span class="pre">1:N</span></code><ul>
+<li>So, the <code class="docutils literal"><span class="pre">N+1</span></code> step was neglected</li>
+</ul>
+</li>
+<li>It fails still, but now the acceleration is within the bounds for the entire prediction horizon</li>
+<li>Also, IPOPT fails on the first one for this case!<ul>
+<li>So, there is no comparison</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<p>Now is is like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span># accleleration bounds
+if nonlinear_acceleration_constraints == &quot;on&quot;
+    @NLexpression(mdl, min_ax[i = 1:N+1], AXC[5]*u[i]^3 + AXC[6]*u[i]^2 + AXC[7]*u[i] + AXC[8])
+    @NLexpression(mdl, max_ax[i = 1:N+1], AXC[1]*u[i]^3 + AXC[2]*u[i]^2 + AXC[3]*u[i] + AXC[4])
+    for i in 1:N+1
+      @NLconstraint(mdl, 0  &lt;=  ax[i] - min_ax[i] )
+      @NLconstraint(mdl, ax[i] -  max_ax[i] &lt;= 0 )
+    end
+end
+
+* As can be see below, this issue is now fixed!
+</pre></div>
+</div>
+<img alt="examples_1/examples/testing_clp20_KNITRO/anim2_fps2.gif" src="examples_1/examples/testing_clp20_KNITRO/anim2_fps2.gif" />
+<p>For a closer look at the end (last optimization) of the static plots, look below.</p>
+<p><strong>Optimization times:</strong></p>
+<img alt="examples_1/examples/testing_clp20_KNITRO/tplot.png" src="examples_1/examples/testing_clp20_KNITRO/tplot.png" />
+<p><strong>Objective Function Values:</strong></p>
+<img alt="examples_1/examples/testing_clp20_KNITRO/optplot.png" src="examples_1/examples/testing_clp20_KNITRO/optplot.png" />
+<p><strong>Taking a look at the states:</strong></p>
+<img alt="examples_1/examples/testing_clp20_KNITRO/main.png" src="examples_1/examples/testing_clp20_KNITRO/main.png" />
+<p><strong>A closer look at the states and controls:</strong></p>
+<img alt="examples_1/examples/testing_clp20_KNITRO/longv.png" src="examples_1/examples/testing_clp20_KNITRO/longv.png" />
+<img alt="examples_1/examples/testing_clp20_KNITRO/ax.png" src="examples_1/examples/testing_clp20_KNITRO/ax.png" />
+<img alt="examples_1/examples/testing_clp20_KNITRO/jx.png" src="examples_1/examples/testing_clp20_KNITRO/jx.png" />
+<img alt="examples_1/examples/testing_clp20_KNITRO/sa.png" src="examples_1/examples/testing_clp20_KNITRO/sa.png" />
+<img alt="examples_1/examples/testing_clp20_KNITRO/sr.png" src="examples_1/examples/testing_clp20_KNITRO/sr.png" />
+<img alt="examples_1/examples/testing_clp20_KNITRO/yaw.png" src="examples_1/examples/testing_clp20_KNITRO/yaw.png" />
+<img alt="examples_1/examples/testing_clp20_KNITRO/yr.png" src="examples_1/examples/testing_clp20_KNITRO/yr.png" />
+<img alt="examples_1/examples/testing_clp20_KNITRO/latv.png" src="examples_1/examples/testing_clp20_KNITRO/latv.png" />
+<img alt="examples_1/examples/testing_clp20_KNITRO/pp.png" src="examples_1/examples/testing_clp20_KNITRO/pp.png" />
+<p><strong>The tire forces are:</strong></p>
+<img alt="examples_1/examples/testing_clp20_KNITRO/vt.png" src="examples_1/examples/testing_clp20_KNITRO/vt.png" />
+<img alt="examples_1/examples/testing_clp20_KNITRO/lt.png" src="examples_1/examples/testing_clp20_KNITRO/lt.png" />
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Huckleberry Febbo, Yingshi Zheng, Nicholas Renbergm, Brian Archer, Matthew Chess, Patrick Ransford, Christopher Klein.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'-rc1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

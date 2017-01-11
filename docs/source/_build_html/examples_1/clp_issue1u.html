@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Adding Constraints On the ENTIRE X0 &amp; KNITRO ex. &mdash; baja -rc1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="baja -rc1 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> baja
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../proj.html">ME 450 Project Requirements Spring 2017</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/software.html">Software and Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../notes.html">Research Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../TODO.html">TO DO</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">baja</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Adding Constraints On the ENTIRE X0 &amp; KNITRO ex.</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples_1/clp_issue1u.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="adding-constraints-on-the-entire-x0-knitro-ex">
+<h1>Adding Constraints On the ENTIRE X0 &amp; KNITRO ex.<a class="headerlink" href="#adding-constraints-on-the-entire-x0-knitro-ex" title="Permalink to this headline">¶</a></h1>
+<p><strong>Notes &amp; Conclusions &amp; Questions:</strong></p>
+<blockquote>
+<div><ul>
+<li><p class="first">One Major problem that I noticed is that the results have been very jumpy</p>
+</li>
+<li><p class="first">In this case, we are adding constraints to make sure that all of the states are continuous between optimizations
+* This is something that I overlooked because when we actually close the loop, these are new constraints</p>
+<blockquote>
+<div><ul class="simple">
+<li>Previously there were no constraints on these variables in the &#8220;First Optimization&#8221;</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">KNITRO fails after the first optimization</p>
+</li>
+<li><p class="first">Also notice how the acceleration jumps above what it should be at the end</p>
+<blockquote>
+<div><ul class="simple">
+<li>We deal with this later</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+<p>Previously we only had:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@NLparameter</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">x0</span>     <span class="o">==</span> <span class="n">x0_</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>     <span class="o">==</span> <span class="n">x0</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span><span class="n">x_ref</span><span class="o">-</span><span class="mf">0.05</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">[</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">x_ref</span><span class="o">+</span><span class="mf">0.05</span><span class="p">);</span>
+<span class="nd">@NLparameter</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">y0</span>     <span class="o">==</span> <span class="n">y0_</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>     <span class="o">==</span> <span class="n">y0</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span><span class="n">y_ref</span><span class="o">-</span><span class="mf">0.05</span> <span class="o">&lt;=</span> <span class="n">y</span><span class="p">[</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">y_ref</span><span class="o">+</span><span class="mf">0.05</span><span class="p">);</span>
+<span class="nd">@NLparameter</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">psi0</span>   <span class="o">==</span> <span class="n">psi0_</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">psi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">psi0</span><span class="p">);</span>
+<span class="nd">@NLparameter</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">v0</span>     <span class="o">==</span> <span class="n">v0_</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>     <span class="o">==</span> <span class="n">v0</span><span class="p">);</span>
+<span class="nd">@NLparameter</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">u0</span>     <span class="o">==</span> <span class="n">u0_</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>     <span class="o">==</span> <span class="n">u0</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">u</span><span class="p">[</span><span class="n">end</span><span class="p">]</span>  <span class="o">==</span> <span class="n">u0_</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we add:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># adding additional initial states TODO check speed of constraining all of the final states as well!</span>
+<span class="nd">@NLparameter</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">sa0</span> <span class="o">==</span> <span class="n">sa0_</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">sa</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">sa0</span><span class="p">);</span>
+<span class="nd">@NLparameter</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">sr0</span> <span class="o">==</span> <span class="n">sr0_</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">sr</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">sr0</span><span class="p">);</span>
+<span class="nd">@NLparameter</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">ax0</span> <span class="o">==</span> <span class="n">ax0_</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">ax0</span><span class="p">);</span>
+<span class="nd">@NLparameter</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">jx0</span> <span class="o">==</span> <span class="n">jx0_</span><span class="p">);</span> <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span> <span class="n">jx</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">jx0</span><span class="p">);</span>
+<span class="nd">@NLparameter</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span>  <span class="n">r0</span> <span class="o">==</span> <span class="n">r0_</span><span class="p">);</span>  <span class="nd">@NLconstraint</span><span class="p">(</span><span class="n">mdl</span><span class="p">,</span>  <span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span>  <span class="n">r0</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Then though the optimization, we update these parameters as:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># update ALL states</span>
+<span class="n">setvalue</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">X</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
+<span class="n">setvalue</span><span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">Y</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
+<span class="n">setvalue</span><span class="p">(</span><span class="n">psi0</span><span class="p">,</span> <span class="n">PSI</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
+<span class="n">setvalue</span><span class="p">(</span><span class="n">v0</span><span class="p">,</span> <span class="n">V</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
+<span class="n">setvalue</span><span class="p">(</span><span class="n">u0</span><span class="p">,</span> <span class="n">U</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
+<span class="n">setvalue</span><span class="p">(</span><span class="n">sa0</span><span class="p">,</span> <span class="n">SA</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
+<span class="n">setvalue</span><span class="p">(</span><span class="n">sr0</span><span class="p">,</span> <span class="n">SR</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
+<span class="n">setvalue</span><span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="n">AX</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
+<span class="n">setvalue</span><span class="p">(</span><span class="n">jx0</span><span class="p">,</span> <span class="n">JX</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
+<span class="n">setvalue</span><span class="p">(</span><span class="n">r0</span><span class="p">,</span>   <span class="n">R</span><span class="p">[</span><span class="n">end</span><span class="p">])</span>
+</pre></div>
+</div>
+<img alt="examples_1/examples/testing_clp18_KNITRO/anim2_fps2.gif" src="examples_1/examples/testing_clp18_KNITRO/anim2_fps2.gif" />
+<p>For a closer look at the end (last optimization) of the static plots, look below.</p>
+<p><strong>Optimization times:</strong></p>
+<img alt="examples_1/examples/testing_clp18_KNITRO/tplot.png" src="examples_1/examples/testing_clp18_KNITRO/tplot.png" />
+<p><strong>Objective Function Values:</strong></p>
+<img alt="examples_1/examples/testing_clp18_KNITRO/optplot.png" src="examples_1/examples/testing_clp18_KNITRO/optplot.png" />
+<p><strong>Taking a look at the states:</strong></p>
+<img alt="examples_1/examples/testing_clp18_KNITRO/main.png" src="examples_1/examples/testing_clp18_KNITRO/main.png" />
+<p><strong>A closer look at the states and controls:</strong></p>
+<img alt="examples_1/examples/testing_clp18_KNITRO/longv.png" src="examples_1/examples/testing_clp18_KNITRO/longv.png" />
+<img alt="examples_1/examples/testing_clp18_KNITRO/ax.png" src="examples_1/examples/testing_clp18_KNITRO/ax.png" />
+<img alt="examples_1/examples/testing_clp18_KNITRO/jx.png" src="examples_1/examples/testing_clp18_KNITRO/jx.png" />
+<img alt="examples_1/examples/testing_clp18_KNITRO/sa.png" src="examples_1/examples/testing_clp18_KNITRO/sa.png" />
+<img alt="examples_1/examples/testing_clp18_KNITRO/sr.png" src="examples_1/examples/testing_clp18_KNITRO/sr.png" />
+<img alt="examples_1/examples/testing_clp18_KNITRO/yaw.png" src="examples_1/examples/testing_clp18_KNITRO/yaw.png" />
+<img alt="examples_1/examples/testing_clp18_KNITRO/yr.png" src="examples_1/examples/testing_clp18_KNITRO/yr.png" />
+<img alt="examples_1/examples/testing_clp18_KNITRO/latv.png" src="examples_1/examples/testing_clp18_KNITRO/latv.png" />
+<img alt="examples_1/examples/testing_clp18_KNITRO/pp.png" src="examples_1/examples/testing_clp18_KNITRO/pp.png" />
+<p><strong>The tire forces are:</strong></p>
+<img alt="examples_1/examples/testing_clp18_KNITRO/vt.png" src="examples_1/examples/testing_clp18_KNITRO/vt.png" />
+<img alt="examples_1/examples/testing_clp18_KNITRO/lt.png" src="examples_1/examples/testing_clp18_KNITRO/lt.png" />
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Huckleberry Febbo, Yingshi Zheng, Nicholas Renbergm, Brian Archer, Matthew Chess, Patrick Ransford, Christopher Klein.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'-rc1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
