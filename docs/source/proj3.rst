@@ -18,7 +18,7 @@ These two tasks are described in more detail below.
 
 Meeting Schedule
 ------------------
-As mentioned (via email on Jan 8th) the students are all responsible for these :ref:`meeting`. It is critical to complete these (weekly meeting notes) the team lead is responsible to manage the progress and tasks of the rest of the students and to create a Gannt chart to organize the overall project goals. 
+As mentioned (via email on Jan 8th) the students are all responsible for these :ref:`meeting`. It is critical to complete these (weekly meeting notes) the team lead is responsible to manage the progress and tasks of the rest of the students and to create a Gannt chart to organize the overall project goals.
 
 .. _design:
 
@@ -63,8 +63,8 @@ Test Longitudinal Speed Systems
 	* Both the throttle and brake systems will be tested to ensure that the they can operate the 	vehicle controls as expected. To do this basic knowledge of control and coding will be applied.
   * An adequate series of tests will be subsequently designed and carried out
 
-Remotely and Autonomously Control Vehicle
-******************************************
+Remotely Control Vehicle
+**************************
 	* For safety, the first series of test where the vehicle is being controlled remotely and with basic PID controller will be performed with the vehicle on an elevated platform (i.e. with the 	tires off of the ground).
 	* This is the next set of tests where the vehicle is controlled remotely as it navigates in a designated area.
 	* This is the next set of tests where the vehicle is controlled using the PID controller as it navigates in a designated area.
