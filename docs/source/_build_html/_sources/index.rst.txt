@@ -14,11 +14,11 @@ Contents:
 .. toctree::
    :glob:
    :maxdepth: 2
-	
-   proj
+
+   weekly_meetings
+   proj3
+   proj2
    software/software
    code
    notes
    TODO
-
-

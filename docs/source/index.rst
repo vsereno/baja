@@ -15,6 +15,7 @@ Contents:
    :glob:
    :maxdepth: 2
 
+   weekly_meetings
    proj3
    proj2
    software/software
